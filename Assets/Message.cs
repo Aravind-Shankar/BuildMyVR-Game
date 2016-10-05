@@ -8,7 +8,7 @@ public class Message : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
-		TextMesh textObject = GameObject.Find("Defect").GetComponent<TextMesh>();
+		TextMesh textObject = GameObject.Find("DefectText").GetComponent<TextMesh>();
 		textObject.text = "";
 
 
