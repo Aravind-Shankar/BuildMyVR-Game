@@ -27,7 +27,7 @@ GameObject:
   - 114: {fileID: 114000012215589280}
   - 114: {fileID: 114000011741383686}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: MicroComponent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
