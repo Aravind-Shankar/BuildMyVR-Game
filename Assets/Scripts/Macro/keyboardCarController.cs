@@ -13,7 +13,9 @@ namespace Macro
 		private Rigidbody RB;
 
 		public float maxSteer = 15.0f;
-		public float maxBrake = 50.0f;
+		public float maxFBrake = 50.0f;
+		public float maxRBrake = 1.0f;
+
 
 		public float maxTorque = 500.0f;
 		public float acceleration = 0.2f;
@@ -32,7 +34,7 @@ namespace Macro
 
 		void FixedUpdate () {
 
-			if (Input.GetAxisRaw ("Vertical") > 0 && accFactor <= 1) {
+			if (Input.GetAxisRaw ("Vertical") > 0 && accFactor<=1) {
 				accFactor += acceleration * (Time.deltaTime);
 			} 
 			else if (Input.GetAxisRaw ("Vertical") == 0) {
@@ -40,7 +42,7 @@ namespace Macro
 			} 
 
 			else if (Input.GetAxisRaw ("Vertical") < 0) {
-				accFactor = 0.4f;
+				accFactor =0.4f;
 			}
 
 
@@ -56,8 +58,10 @@ namespace Macro
 
 
 			if(Input.GetKey(KeyCode.Space)){
-				wheelFL.brakeTorque= maxBrake; 
-				wheelFR.brakeTorque= maxBrake; 
+				wheelFL.brakeTorque= maxFBrake; 
+				wheelFR.brakeTorque= maxFBrake;
+				wheelRL.brakeTorque= maxRBrake;
+				wheelRR.brakeTorque= maxRBrake;
 			}
 
 		}
