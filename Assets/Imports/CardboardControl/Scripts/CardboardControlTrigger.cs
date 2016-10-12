@@ -38,7 +38,8 @@ public class CardboardControlTrigger : MonoBehaviour {
     touch = new ParsedTouchData();
   }
 
-  public void Update() {
+	public void Update() {
+		
     magnet.Update();
     touch.Update();
     if (useTouch) CheckTouch();
@@ -48,6 +49,8 @@ public class CardboardControlTrigger : MonoBehaviour {
 
   public void FixedUpdate() {
     if (printDebugInfo) PrintDebug();
+		if (GvrViewer.Instance.Triggered)
+			Debug.Log ("triggered");
   }
 
   private bool KeyFor(string direction) {
