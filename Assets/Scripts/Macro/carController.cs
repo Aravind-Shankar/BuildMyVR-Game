@@ -15,10 +15,10 @@ namespace Macro
 		private Rigidbody rb;
 
 		public float maxSteer = 15.0f;
-		public float maxBrake = 50.0f;
+		public float maxFBrake = 50.0f;
+		public float maxRBrake = 10.0f;
 
-
-		public float maxTorque = 2000.0f;
+		public float maxTorque = 1000.0f;
 		public float acceleration = 0.2f;
 		private float accFactor = 0.0f;
 
@@ -43,9 +43,11 @@ namespace Macro
 			if (accFactor <= 1) {
 				accFactor += acceleration * (Time.deltaTime);
 			} 
-				
+
 			wheelRL.motorTorque = -accFactor * maxTorque;
 			wheelRR.motorTorque = -accFactor * maxTorque;
+			wheelFL.brakeTorque = 0.0f;
+			wheelFR.brakeTorque = 0.0f;
 			wheelRL.brakeTorque = 0.0f; 
 			wheelRR.brakeTorque = 0.0f; 
 
@@ -65,8 +67,10 @@ namespace Macro
 
 			//this uses the brake
 			if (GvrViewer.Instance.Triggered && triggerTime == 0.0f) {
-				wheelFL.brakeTorque = maxBrake; 
-				wheelFR.brakeTorque = maxBrake;
+				wheelFL.brakeTorque = maxFBrake; 
+				wheelFR.brakeTorque = maxFBrake;
+				wheelRR.brakeTorque = maxRBrake;
+				wheelRR.brakeTorque = maxRBrake;
 				triggerTimer = true;
 				print ("Triggered");
 			} 
@@ -80,7 +84,7 @@ namespace Macro
 				SceneManager.LoadScene ("Jason");
 				print ("Triggered");
 			}
-			
+
 
 			if (triggerTimer == true) {
 				triggerTime += Time.deltaTime;
