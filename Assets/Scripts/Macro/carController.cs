@@ -12,6 +12,7 @@ namespace Macro
 		public WheelCollider wheelRL;
 		public WheelCollider wheelRR;
 
+		private Rigidbody rb;
 
 		public float maxSteer = 15.0f;
 		public float maxBrake = 50.0f;
@@ -29,6 +30,8 @@ namespace Macro
 
 		// Use this for initialization
 		void Start () {
+			rb = GetComponent<Rigidbody> ();
+			rb.centerOfMass = new Vector3 (0.0f, -0.9f, 0.0f);
 		}
 
 		void OnGUI(){
