@@ -65,8 +65,8 @@ namespace Macro
 
 			//this uses the brake
 			if (GvrViewer.Instance.Triggered && triggerTime == 0.0f) {
-				wheelRL.brakeTorque = maxBrake; 
-				wheelRR.brakeTorque = maxBrake;
+				wheelFL.brakeTorque = maxBrake; 
+				wheelFR.brakeTorque = maxBrake;
 				triggerTimer = true;
 				print ("Triggered");
 			} 
