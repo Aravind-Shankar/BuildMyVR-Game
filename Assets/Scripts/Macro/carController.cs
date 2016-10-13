@@ -14,7 +14,7 @@ namespace Macro
 
 		private Rigidbody rb;
 
-		public float maxSteer = 15.0f;
+		public float maxSteer = 20.0f;
 		public float maxFBrake = 50.0f;
 		public float maxRBrake = 10.0f;
 
@@ -25,7 +25,7 @@ namespace Macro
 
 		private float triggerTime = 0.0f; //time after which the trigger has been pulled
 		private bool triggerTimer; //says whether the timer is on or off
-		public float triggerCutoffTime; //time interval for the double click. (triggers the scene change)
+		public float triggerCutoffTime = 1.0f; //time interval for the double click. (triggers the scene change)
 
 
 		// Use this for initialization
@@ -36,6 +36,9 @@ namespace Macro
 
 		void OnGUI(){
 			GUI.Label (new Rect (5, 5, Screen.width, 30), "Steer Torque: " + wheelFL.steerAngle);
+			GUI.Label (new Rect (5, 15, Screen.width, 30), "Front Brake Torque: " + wheelFL.brakeTorque);
+			GUI.Label (new Rect (5, 25, Screen.width, 30), "Rear Brake Torque: " + wheelRL.brakeTorque);
+
 		}
 
 		void FixedUpdate () {
@@ -46,10 +49,6 @@ namespace Macro
 
 			wheelRL.motorTorque = -accFactor * maxTorque;
 			wheelRR.motorTorque = -accFactor * maxTorque;
-			wheelFL.brakeTorque = 0.0f;
-			wheelFR.brakeTorque = 0.0f;
-			wheelRL.brakeTorque = 0.0f; 
-			wheelRR.brakeTorque = 0.0f; 
 
 			//linearly inc the steering angle using accelerometer
 			if (Mathf.Abs (Input.acceleration.x) > 1.0f) {
@@ -66,30 +65,29 @@ namespace Macro
 
 
 			//this uses the brake
-			if (GvrViewer.Instance.Triggered && triggerTime == 0.0f) {
-				wheelFL.brakeTorque = maxFBrake; 
-				wheelFR.brakeTorque = maxFBrake;
-				wheelRR.brakeTorque = maxRBrake;
-				wheelRR.brakeTorque = maxRBrake;
-				triggerTimer = true;
-				print ("Triggered");
-			} 
 
-			else if (GvrViewer.Instance.Triggered && triggerTime >= triggerCutoffTime) {
-				print ("Triggered");
-				triggerTimer = false;
-			} 
-
-			else if (GvrViewer.Instance.Triggered && (triggerTime < triggerCutoffTime)) { 
-				SceneManager.LoadScene ("Jason");
-				print ("Triggered");
+			if (GvrViewer.Instance.Triggered) {
+				if (triggerTime == 0.0f) {
+					wheelFL.brakeTorque = maxFBrake; 
+					wheelFR.brakeTorque = maxFBrake;
+					wheelRR.brakeTorque = maxRBrake;
+					wheelRL.brakeTorque = maxRBrake;
+					triggerTimer = true;
+				}
+				else if (triggerTime >= triggerCutoffTime) {
+					wheelFL.brakeTorque = 0.0f;
+					wheelFR.brakeTorque = 0.0f;
+					wheelRL.brakeTorque = 0.0f; 
+					wheelRR.brakeTorque = 0.0f; 
+					triggerTime = 0.0f;
+					triggerTimer = false;
+				}
 			}
-
 
 			if (triggerTimer == true) {
 				triggerTime += Time.deltaTime;
 			} 
-
+			 
 			else {
 				triggerTime = 0.0f;		
 			}
