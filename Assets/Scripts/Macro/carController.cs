@@ -65,7 +65,7 @@ namespace Macro
 
 
 			//this uses the brake
-
+			/*
 			if (GvrViewer.Instance.Triggered) {
 				if (triggerTime == 0.0f) {
 					wheelFL.brakeTorque = maxFBrake; 
@@ -91,7 +91,42 @@ namespace Macro
 			else {
 				triggerTime = 0.0f;		
 			}
+			*/
+			if (triggerTime == 0.0f) {
+				MagnetSensor.OnCardboardTrigger += CarBrakes (true);
+			}
+			else if (triggerTime >= triggerCutoffTime) {
+				
+				MagnetSensor.OnCardboardTrigger += CarBrakes (false);
+			}
+
+			if (triggerTimer == true) {
+				triggerTime += Time.deltaTime;
+			} 
+
+			else {
+				triggerTime = 0.0f;		
+			}
+		}
+	
+
+		void CarBrakes(bool trig){
+			if (trig) {
+				wheelFL.brakeTorque = maxFBrake; 
+				wheelFR.brakeTorque = maxFBrake;
+				wheelRR.brakeTorque = maxRBrake;
+				wheelRL.brakeTorque = maxRBrake;
+				triggerTimer = true;
+
+			}
+			else {
+				wheelFL.brakeTorque = 0.0f;
+				wheelFR.brakeTorque = 0.0f;
+				wheelRL.brakeTorque = 0.0f; 
+				wheelRR.brakeTorque = 0.0f;
+				triggerTime = 0.0f;
+				triggerTimer = false;
+			}
 		}
 	}
-
 }
