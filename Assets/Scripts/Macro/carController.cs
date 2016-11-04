@@ -30,6 +30,7 @@ namespace Macro
 
 		// Use this for initialization
 		void Start () {
+			MagnetSensor.OnCardboardTrigger += CarBrakes ();
 			rb = GetComponent<Rigidbody> ();
 			rb.centerOfMass = new Vector3 (0.0f, -0.9f, 0.0f);
 		}
@@ -92,13 +93,8 @@ namespace Macro
 				triggerTime = 0.0f;		
 			}
 			*/
-			if (triggerTime == 0.0f) {
-				MagnetSensor.OnCardboardTrigger += CarBrakes (true);
-			}
-			else if (triggerTime >= triggerCutoffTime) {
-				
-				MagnetSensor.OnCardboardTrigger += CarBrakes (false);
-			}
+
+
 
 			if (triggerTimer == true) {
 				triggerTime += Time.deltaTime;
@@ -110,8 +106,8 @@ namespace Macro
 		}
 	
 
-		void CarBrakes(bool trig){
-			if (trig) {
+		void CarBrakes(){
+			if (triggerTime == 0.0f) {
 				wheelFL.brakeTorque = maxFBrake; 
 				wheelFR.brakeTorque = maxFBrake;
 				wheelRR.brakeTorque = maxRBrake;
@@ -119,7 +115,7 @@ namespace Macro
 				triggerTimer = true;
 
 			}
-			else {
+			else if (triggerTime >= triggerCutoffTime) {
 				wheelFL.brakeTorque = 0.0f;
 				wheelFR.brakeTorque = 0.0f;
 				wheelRL.brakeTorque = 0.0f; 
