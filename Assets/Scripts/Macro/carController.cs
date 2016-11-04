@@ -30,7 +30,7 @@ namespace Macro
 
 		// Use this for initialization
 		void Start () {
-			MagnetSensor.OnCardboardTrigger += CarBrakes ();
+			MagnetSensor.OnCardboardTrigger += CarBrakes;
 			rb = GetComponent<Rigidbody> ();
 			rb.centerOfMass = new Vector3 (0.0f, -0.9f, 0.0f);
 		}
