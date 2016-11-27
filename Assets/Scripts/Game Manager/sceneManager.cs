@@ -4,7 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class sceneManager : MonoBehaviour {
 	static sceneManager instance;
-	// Use this for initialization
+
+	public string linkedScene1 = "Karthikeswaren";
+	public string linkedScene2 = "Jason";
 
 	private float triggerTime = 0.0f; //time after which the trigger has been pulled
 	private bool triggerTimer; //says whether the timer is on or off
@@ -20,33 +22,21 @@ public class sceneManager : MonoBehaviour {
 			DontDestroyOnLoad (gameObject);
 			instance = this;
 		}
-
 	}
-	
-	// Update is called once per frame
-	void Update () {
 
+	void OnEnable() {
+		MagnetSensor.OnCardboardTrigger += ChangeScene;
+	}
+
+	void OnDisable() {
+		MagnetSensor.OnCardboardTrigger -= ChangeScene;
+	}
+
+	void Update () {
 		currentScene = SceneManager.GetActiveScene();
 
-		/*
-		if (Input.GetKey(KeyCode.Space) && (triggerTime < triggerCutoffTime)) { 
-			SceneManager.LoadScene ("Jason");
-			print ("Triggered");
-		}
-		*/
-		if (Input.GetKey(KeyCode.Space)){
-			triggerTimer = true;
-			if (triggerTime < triggerCutoffTime){
-				triggerTime = 0.0f;
-				if (currentScene.name == "Karthikeswaren"){
-					SceneManager.LoadScene ("Jason");
-				}
-
-				else if (currentScene.name == "Jason"){
-					SceneManager.LoadScene ("Karthikeswaren");
-				}
-			}
-		}
+		if (Input.GetKey (KeyCode.Space))
+			ChangeScene ();
 
 		if (triggerTimer == true) {
 			triggerTime += Time.deltaTime;
@@ -54,6 +44,20 @@ public class sceneManager : MonoBehaviour {
 
 		else {
 			triggerTime = 0.0f;		
+		}
+	}
+
+	void ChangeScene() {
+		triggerTimer = true;
+		if (triggerTime < triggerCutoffTime){
+			triggerTime = 0.0f;
+			if (currentScene.name == linkedScene1){
+				SceneManager.LoadScene (linkedScene2);
+			}
+
+			else if (currentScene.name == linkedScene2){
+				SceneManager.LoadScene (linkedScene1);
+			}
 		}
 	}
 }
