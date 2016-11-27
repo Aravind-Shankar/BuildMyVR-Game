@@ -22,7 +22,6 @@ namespace Macro
 		public float acceleration = 0.2f;
 		private float accFactor = 0.0f;
 
-
 		private float triggerTime = 0.0f; //time after which the trigger has been pulled
 		private bool triggerTimer; //says whether the timer is on or off
 		public float triggerCutoffTime = 1.0f; //time interval for the double click. (triggers the scene change)
