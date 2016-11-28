@@ -14,7 +14,6 @@ namespace Macro
 
 		private Rigidbody rb;
 
-		private float carSpeed;
 		public float maxSteer = 20.0f;
 		public float maxFBrake = 50.0f;
 		public float maxRBrake = 10.0f;
@@ -33,11 +32,9 @@ namespace Macro
 			MagnetSensor.OnCardboardTrigger += CarBrakes;
 			rb = GetComponent<Rigidbody> ();
 			rb.centerOfMass = new Vector3 (0.0f, -0.9f, 0.0f);
-			carSpeed = 0.0f;
 		}
 
 		void OnGUI(){
-			GUI.Label (new Rect (5, 30, Screen.width, 30), "Speed: " + carSpeed + "kmph");
 
 		}
 
@@ -60,10 +57,7 @@ namespace Macro
 				wheelFL.steerAngle = maxSteer * Input.acceleration.x;
 				wheelFR.steerAngle = maxSteer * Input.acceleration.x;
 			}
-
-			carSpeed = rb.velocity.magnitude;
-			carSpeed = carSpeed * (5.0f / 18.0f);
-
+				
 			if (triggerTimer == true) {
 				triggerTime += Time.deltaTime;
 			} 
