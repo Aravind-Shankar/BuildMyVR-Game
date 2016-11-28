@@ -14,6 +14,7 @@ namespace Macro
 
 		private Rigidbody rb;
 
+		private float carSpeed;
 		public float maxSteer = 20.0f;
 		public float maxFBrake = 50.0f;
 		public float maxRBrake = 10.0f;
@@ -32,12 +33,11 @@ namespace Macro
 			MagnetSensor.OnCardboardTrigger += CarBrakes;
 			rb = GetComponent<Rigidbody> ();
 			rb.centerOfMass = new Vector3 (0.0f, -0.9f, 0.0f);
+			carSpeed = 0.0f;
 		}
 
 		void OnGUI(){
-			GUI.Label (new Rect (5, 5, Screen.width, 30), "Steer Torque: " + wheelFL.steerAngle);
-			GUI.Label (new Rect (5, 15, Screen.width, 30), "Front Brake Torque: " + wheelFL.brakeTorque);
-			GUI.Label (new Rect (5, 25, Screen.width, 30), "Rear Brake Torque: " + wheelRL.brakeTorque);
+			GUI.Label (new Rect (5, 30, Screen.width, 30), "Speed: " + carSpeed + "kmph");
 
 		}
 
@@ -45,7 +45,7 @@ namespace Macro
 			//used to inc the torque linearly
 			if (accFactor <= 1) {
 				accFactor += acceleration * (Time.deltaTime);
-			} 
+			}
 
 			wheelRL.motorTorque = -accFactor * maxTorque;
 			wheelRR.motorTorque = -accFactor * maxTorque;
@@ -61,39 +61,8 @@ namespace Macro
 				wheelFR.steerAngle = maxSteer * Input.acceleration.x;
 			}
 
-
-
-
-			//this uses the brake
-			/*
-			if (GvrViewer.Instance.Triggered) {
-				if (triggerTime == 0.0f) {
-					wheelFL.brakeTorque = maxFBrake; 
-					wheelFR.brakeTorque = maxFBrake;
-					wheelRR.brakeTorque = maxRBrake;
-					wheelRL.brakeTorque = maxRBrake;
-					triggerTimer = true;
-				}
-				else if (triggerTime >= triggerCutoffTime) {
-					wheelFL.brakeTorque = 0.0f;
-					wheelFR.brakeTorque = 0.0f;
-					wheelRL.brakeTorque = 0.0f; 
-					wheelRR.brakeTorque = 0.0f; 
-					triggerTime = 0.0f;
-					triggerTimer = false;
-				}
-			}
-
-			if (triggerTimer == true) {
-				triggerTime += Time.deltaTime;
-			} 
-			 
-			else {
-				triggerTime = 0.0f;		
-			}
-			*/
-
-
+			carSpeed = rb.velocity.magnitude;
+			carSpeed = carSpeed * (5.0f / 18.0f);
 
 			if (triggerTimer == true) {
 				triggerTime += Time.deltaTime;
