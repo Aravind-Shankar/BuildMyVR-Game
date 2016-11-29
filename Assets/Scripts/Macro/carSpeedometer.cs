@@ -1,19 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class carSpeedometer : MonoBehaviour {
 
 	private Rigidbody carRB;
 	private float carSpeed;
 	public bool isDefect = false;
-	private string speedText;
+	public Text speedText;
+
+
 	// Use this for initialization
 	void Start () {
 		carRB = GetComponent<Rigidbody> ();
-	}
-
-	void OnGUI(){
-		GUI.Label (new Rect (5, 30, Screen.width, 30), "Speed: " + speedText);
 	}
 
 
@@ -23,11 +22,11 @@ public class carSpeedometer : MonoBehaviour {
 			carSpeed = carRB.velocity.magnitude;
 			carSpeed = carSpeed * (5.0f / 18.0f);
 			carSpeed = (int)carSpeed;	
-			speedText = carSpeed + " kmph";
+			speedText.text = "Speed " + carSpeed + " kmph";
 		}
 		else if (isDefect) {
 			carSpeed = (int)carSpeed;	
-			speedText = carSpeed + " kmph DEFECTIVE";
+			speedText.text = "Speed " + carSpeed + " kmph DEFECTIVE";
 		}
 
 	}

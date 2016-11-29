@@ -3,23 +3,23 @@ using System.Collections;
 
 public class defectManager : MonoBehaviour {
 
-	private float defectTimer;
+	private float defectTime;
 	public GameObject car;
 	private carSpeedometer c;
 	// Use this for initialization
 	void Start () {
-		defectTimer = 10.0f;
+		defectTime = 10.0f;
 		c = car.GetComponent<carSpeedometer> ();
-		defectTimer += (10.0f) * (Random.value);
-		print (defectTimer);
+		defectTime += (10.0f) * (Random.value);
+		print (defectTime);
 
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		defectTimer -= Time.deltaTime;
+		defectTime -= Time.deltaTime;
 
-		if (defectTimer <= 0.0f) {
+		if (defectTime <= 0.0f) {
 			c.isDefect = true;
 		}
 
