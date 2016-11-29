@@ -28,15 +28,18 @@ namespace Macro
 
 		// Use this for initialization
 		void Start () {
-			MagnetSensor.OnCardboardTrigger += CarBrakes;
 			rb = GetComponent<Rigidbody> ();
 			rb.centerOfMass = new Vector3 (0.0f, -0.9f, 0.0f);
 
 			LoadMacroState ();
 		}
 
-		void OnGUI(){
+		void OnEnable() {
+			MagnetSensor.OnCardboardTrigger += CarBrakes;
+		}
 
+		void OnDisable() {
+			MagnetSensor.OnCardboardTrigger -= CarBrakes;
 		}
 
 		void FixedUpdate () {
@@ -58,6 +61,9 @@ namespace Macro
 				wheelFL.steerAngle = maxSteer * Input.acceleration.x;
 				wheelFR.steerAngle = maxSteer * Input.acceleration.x;
 			}
+
+			if (Input.GetKeyDown (KeyCode.Space))
+				CarBrakes ();
 				
 			if (triggerTimer == true) {
 				triggerTime += Time.deltaTime;
@@ -89,7 +95,7 @@ namespace Macro
 		}
 
 		void CarBrakes(){
-			if (triggerTime == 0.0f) {
+			/*if (triggerTime == 0.0f) {
 				wheelFL.brakeTorque = maxFBrake; 
 				wheelFR.brakeTorque = maxFBrake;
 				wheelRR.brakeTorque = maxRBrake;
@@ -104,7 +110,11 @@ namespace Macro
 				wheelRR.brakeTorque = 0.0f;
 				triggerTime = 0.0f;
 				triggerTimer = false;
-			}
+			}*/
+			wheelFL.brakeTorque = maxFBrake; 
+			wheelFR.brakeTorque = maxFBrake;
+			wheelRR.brakeTorque = maxRBrake;
+			wheelRL.brakeTorque = maxRBrake;
 		}
 	}
 }

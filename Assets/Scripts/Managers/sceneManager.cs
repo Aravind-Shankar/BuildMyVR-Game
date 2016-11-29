@@ -41,11 +41,15 @@ public class sceneManager : MonoBehaviour {
 	void Update () {
 		currentScene = SceneManager.GetActiveScene();
 
-		if (Input.GetKey (KeyCode.Space) && !inSceneTransition)
+		if (Input.GetKeyDown (KeyCode.Space) && !inSceneTransition)
 			ChangeScene ();
 
 		if (triggerTimer == true) {
 			triggerTime += Time.deltaTime;
+			if (triggerTime > triggerCutoffTime) {
+				triggerTimer = false;
+				triggerTime = 0.0f;
+			}
 		} 
 
 		else {
@@ -54,8 +58,9 @@ public class sceneManager : MonoBehaviour {
 	}
 
 	void ChangeScene() {
-		triggerTimer = true;
-		if (triggerTime < triggerCutoffTime){
+		if (!triggerTimer)
+			triggerTimer = true;
+		else if (triggerTime < triggerCutoffTime){
 			triggerTime = 0.0f;
 			if (currentScene.name == linkedScene1){
 				StartCoroutine(SignalAndSwitchScenes(linkedScene2));
