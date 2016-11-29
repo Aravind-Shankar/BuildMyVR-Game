@@ -10,6 +10,9 @@ public class defectManager : MonoBehaviour {
 	void Start () {
 		defectTimer = 10.0f;
 		c = car.GetComponent<carSpeedometer> ();
+		defectTimer += (10.0f) * (Random.value);
+		print (defectTimer);
+
 	}
 	
 	// Update is called once per frame
