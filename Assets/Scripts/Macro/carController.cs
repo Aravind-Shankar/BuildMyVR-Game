@@ -26,12 +26,13 @@ namespace Macro
 		private bool triggerTimer; //says whether the timer is on or off
 		public float triggerCutoffTime = 1.0f; //time interval for the double click. (triggers the scene change)
 
-
 		// Use this for initialization
 		void Start () {
 			MagnetSensor.OnCardboardTrigger += CarBrakes;
 			rb = GetComponent<Rigidbody> ();
 			rb.centerOfMass = new Vector3 (0.0f, -0.9f, 0.0f);
+
+			LoadMacroState ();
 		}
 
 		void OnGUI(){
@@ -65,8 +66,27 @@ namespace Macro
 			else {
 				triggerTime = 0.0f;		
 			}
+
+			if (sceneManager.instance.inSceneTransition)
+				SaveMacroState ();
+		}
+
+		void LoadMacroState() {
+			MacroState pastState = sceneManager.instance.GlobalMacroState;
+			if (pastState != null) {
+				transform.position = pastState.carPosition;
+				transform.rotation = pastState.carRotation;
+			}
 		}
 	
+		void SaveMacroState() {
+			MacroState globalState = sceneManager.instance.GlobalMacroState;
+			if (globalState == null)
+				globalState = sceneManager.instance.GlobalMacroState = new MacroState ();
+			
+			globalState.carPosition = transform.position;
+			globalState.carRotation = transform.rotation;
+		}
 
 		void CarBrakes(){
 			if (triggerTime == 0.0f) {
