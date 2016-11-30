@@ -475,8 +475,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81ee222ce52698e4e9546d77904a1cfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linkedScene1: Karthikeswaren
+  linkedScene1: Jason
   linkedScene2: Aravind
+  inSceneTransition: 0
   triggerCutoffTime: 1
 --- !u!114 &1792298013
 MonoBehaviour:
