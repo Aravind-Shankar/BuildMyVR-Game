@@ -11,13 +11,11 @@ public class carController : MonoBehaviour {
 	public WheelCollider wheelRL;
 	public WheelCollider wheelRR;
 
-
 	private Rigidbody rb;
 
 	public float maxSteer = 20.0f;
 	public float maxFBrake = 30.0f;
 	public float maxRBrake = 10.0f;
-
 
 	public float maxTorque = 1000.0f;
 	private float acceleration = 100.0f;
@@ -50,6 +48,12 @@ public class carController : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
+
+		wheelFL.brakeTorque = 0.0f; 
+		wheelFR.brakeTorque = 0.0f;
+		wheelRR.brakeTorque = 0.0f;
+		wheelRL.brakeTorque = 0.0f;
+
 		//used to inc the torque linearly
 		if (accFactor <= 1) {
 			accFactor += acceleration * (Time.deltaTime);
@@ -58,7 +62,9 @@ public class carController : MonoBehaviour {
 
 		wheelRL.motorTorque = -accFactor * maxTorque;
 		wheelRR.motorTorque = -accFactor * maxTorque;
-		
+
+
+
 		//linearly inc the steering angle using accelerometer
 		if (Mathf.Abs (Input.acceleration.x) > 1.0f) {
 			wheelFL.steerAngle = maxSteer;
@@ -133,5 +139,4 @@ public class carController : MonoBehaviour {
 			}
 		}
 	}
-
 }
