@@ -2,8 +2,6 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-
-
 public class carController : MonoBehaviour {
 
 	public WheelCollider wheelFL;
@@ -16,6 +14,8 @@ public class carController : MonoBehaviour {
 	public float maxSteer = 20.0f;
 	public float maxFBrake = 30.0f;
 	public float maxRBrake = 10.0f;
+
+	private int magState = 0;
 
 	public float maxTorque = 1000.0f;
 	private float acceleration = 100.0f;
@@ -40,21 +40,23 @@ public class carController : MonoBehaviour {
 	}
 	*/
 	void OnEnable() {
-		MagnetSensor.OnCardboardTrigger += CarBrakes;
+		MagnetSensor.OnCardboardTrigger += CarBrakesOn;
 	}
 
 	void OnDisable() {
-		MagnetSensor.OnCardboardTrigger -= CarBrakes;
+		if (magState == 0) {
+			MagnetSensor.OnCardboardTrigger -= CarBrakesOff;
+		}
+		else if (magState == 1) {
+			MagnetSensor.OnCardboardTrigger -= CarBrakesOn;
+		}
 	}
 
 	void FixedUpdate () {
-
-		wheelFL.brakeTorque = 0.0f; 
-		wheelFR.brakeTorque = 0.0f;
-		wheelRR.brakeTorque = 0.0f;
-		wheelRL.brakeTorque = 0.0f;
-
+		//BrakeAssign ();
 		//used to inc the torque linearly
+		//MagnetSensor.OnCardboardTrigger += CarBrakesOn;
+
 		if (accFactor <= 1) {
 			accFactor += acceleration * (Time.deltaTime);
 		}
@@ -62,8 +64,6 @@ public class carController : MonoBehaviour {
 
 		wheelRL.motorTorque = -accFactor * maxTorque;
 		wheelRR.motorTorque = -accFactor * maxTorque;
-
-
 
 		//linearly inc the steering angle using accelerometer
 		if (Mathf.Abs (Input.acceleration.x) > 1.0f) {
@@ -76,8 +76,8 @@ public class carController : MonoBehaviour {
 			wheelFR.steerAngle = maxSteer * Input.acceleration.x;
 		}
 
-		if (Input.GetKeyDown (KeyCode.Space))
-			CarBrakes ();
+		if (Input.GetKey (KeyCode.Space))
+			CarBrakesOn ();
 				
 		if (triggerTimer == true) {
 			triggerTime += Time.deltaTime;
@@ -107,8 +107,19 @@ public class carController : MonoBehaviour {
 		globalState.carPosition = transform.position;
 		globalState.carRotation = transform.rotation;
 	}
-
-	void CarBrakes(){
+	/*
+	void BrakeAssign(){
+		if (magState == 0) {
+			MagnetSensor.OnCardboardTrigger -= CarBrakesOff;
+			MagnetSensor.OnCardboardTrigger += CarBrakesOn;
+		}
+		else if (magState == 1) {
+			MagnetSensor.OnCardboardTrigger -= CarBrakesOn;
+			MagnetSensor.OnCardboardTrigger += CarBrakesOff;
+		}
+	}
+	*/
+	void CarBrakesOn(){
 			/*if (triggerTime == 0.0f) {
 				wheelFL.brakeTorque = maxFBrake; 
 				wheelFR.brakeTorque = maxFBrake;
@@ -125,10 +136,24 @@ public class carController : MonoBehaviour {
 				triggerTime = 0.0f;
 				triggerTimer = false;
 			}*/
+		magState = 1;
 		wheelFL.brakeTorque = maxFBrake; 
 		wheelFR.brakeTorque = maxFBrake;
 		wheelRR.brakeTorque = maxRBrake;
 		wheelRL.brakeTorque = maxRBrake;
+		MagnetSensor.OnCardboardTrigger -= CarBrakesOn;
+		MagnetSensor.OnCardboardTrigger += CarBrakesOff;
+	}
+
+	void CarBrakesOff(){
+		magState = 0;
+		wheelFL.brakeTorque = 0.0f; 
+		wheelFR.brakeTorque = 0.0f;
+		wheelRR.brakeTorque = 0.0f;
+		wheelRL.brakeTorque = 0.0f;
+		magState = 0;
+		MagnetSensor.OnCardboardTrigger -= CarBrakesOff;
+		MagnetSensor.OnCardboardTrigger += CarBrakesOn;
 	}
 
 	public void AccDefect(){
