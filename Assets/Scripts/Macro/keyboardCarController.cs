@@ -29,7 +29,7 @@ namespace Macro
 		}
 
 		void OnGUI(){
-			GUI.Label (new Rect (5, 5, Screen.width, 30), "Maximum Torque" + maxTorque);
+			GUI.Label (new Rect (5, 5, Screen.width, 30), "Maximum Torque" + wheelRR.motorTorque);
 		}
 
 		void FixedUpdate () {
@@ -50,7 +50,8 @@ namespace Macro
 			wheelRR.motorTorque = -accFactor * Input.GetAxisRaw ("Vertical") * maxTorque;
 			wheelFL.brakeTorque = 0.0f; 
 			wheelFR.brakeTorque = 0.0f; 
-
+			wheelRL.brakeTorque = 0.0f;
+			wheelRR.brakeTorque = 0.0f;
 
 			wheelFL.steerAngle = maxSteer * Input.GetAxis ("Horizontal");
 			wheelFR.steerAngle = maxSteer * Input.GetAxis ("Horizontal");
@@ -58,10 +59,10 @@ namespace Macro
 
 
 			if(Input.GetKey(KeyCode.Space)){
-				wheelFL.brakeTorque= maxFBrake; 
-				wheelFR.brakeTorque= maxFBrake;
-				wheelRL.brakeTorque= maxRBrake;
-				wheelRR.brakeTorque= maxRBrake;
+				wheelFL.brakeTorque = maxFBrake; 
+				wheelFR.brakeTorque = maxFBrake;
+				wheelRL.brakeTorque = maxRBrake;
+				wheelRR.brakeTorque = maxRBrake;
 			}
 
 		}

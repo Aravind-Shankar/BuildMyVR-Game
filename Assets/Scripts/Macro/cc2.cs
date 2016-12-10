@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class carController : MonoBehaviour {
+public class cc2 : MonoBehaviour {
 
 	public WheelCollider wheelFL;
 	public WheelCollider wheelFR;
@@ -12,13 +12,11 @@ public class carController : MonoBehaviour {
 	private Rigidbody rb;
 
 	public float maxSteer = 20.0f;
-	public float maxFBrake = 30.0f;
-	public float maxRBrake = 10.0f;
 
 	private int magState = 0;
 
 	public float maxTorque = 1000.0f;
-	private float acceleration = 100.0f;
+	private float acceleration = 70.0f;
 	private float accFactor = 0.0f;
 	public bool isAccDefect;
 
@@ -54,9 +52,7 @@ public class carController : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-		//BrakeAssign ();
 		//used to inc the torque linearly
-		//MagnetSensor.OnCardboardTrigger += CarBrakesOn;
 
 		if (accFactor <= 1) {
 			accFactor += acceleration * (Time.deltaTime);
@@ -78,7 +74,7 @@ public class carController : MonoBehaviour {
 
 		if (Input.GetKey (KeyCode.Space))
 			CarBrakesOn ();
-				
+
 		if (triggerTimer == true) {
 			triggerTime += Time.deltaTime;
 		} 
@@ -98,29 +94,18 @@ public class carController : MonoBehaviour {
 			transform.rotation = pastState.carRotation;
 		}
 	}
-	
+
 	void SaveMacroState() {
 		MacroState globalState = sceneManager.instance.GlobalMacroState;
 		if (globalState == null)
 			globalState = sceneManager.instance.GlobalMacroState = new MacroState ();
-			
+
 		globalState.carPosition = transform.position;
 		globalState.carRotation = transform.rotation;
 	}
-	/*
-	void BrakeAssign(){
-		if (magState == 0) {
-			MagnetSensor.OnCardboardTrigger -= CarBrakesOff;
-			MagnetSensor.OnCardboardTrigger += CarBrakesOn;
-		}
-		else if (magState == 1) {
-			MagnetSensor.OnCardboardTrigger -= CarBrakesOn;
-			MagnetSensor.OnCardboardTrigger += CarBrakesOff;
-		}
-	}
-	*/
+
 	void CarBrakesOn(){
-			/*if (triggerTime == 0.0f) {
+		/*if (triggerTime == 0.0f) {
 				wheelFL.brakeTorque = maxFBrake; 
 				wheelFR.brakeTorque = maxFBrake;
 				wheelRR.brakeTorque = maxRBrake;
@@ -137,30 +122,16 @@ public class carController : MonoBehaviour {
 				triggerTimer = false;
 			}*/
 		magState = 1;
-		if (rb.velocity.z <= 0.0f && rb.velocity.z >= -0.3f) {
-			revOrFor = false;
-		} 
-		else {
-			wheelFL.brakeTorque = maxFBrake; 
-			wheelFR.brakeTorque = maxFBrake;
-			wheelRR.brakeTorque = maxRBrake;
-			wheelRL.brakeTorque = maxRBrake;
-		}
+		revOrFor = false;
+
 		MagnetSensor.OnCardboardTrigger -= CarBrakesOn;
 		MagnetSensor.OnCardboardTrigger += CarBrakesOff;
 	}
 
 	void CarBrakesOff(){
 		magState = 0;
-		if (!revOrFor) {
-			revOrFor = true;
-		}
-		else {
-			wheelFL.brakeTorque = 0.0f; 
-			wheelFR.brakeTorque = 0.0f;
-			wheelRR.brakeTorque = 0.0f;
-			wheelRL.brakeTorque = 0.0f;
-		}
+		revOrFor = true;
+		
 		MagnetSensor.OnCardboardTrigger -= CarBrakesOff;
 		MagnetSensor.OnCardboardTrigger += CarBrakesOn;
 	}
@@ -180,8 +151,8 @@ public class carController : MonoBehaviour {
 			wheelRR.motorTorque = -accFactor * maxTorque;
 		}
 		else {
-			wheelRL.motorTorque = accFactor * maxTorque;
-			wheelRR.motorTorque = accFactor * maxTorque;
+			wheelRL.motorTorque = accFactor * maxTorque * 0.5f;
+			wheelRR.motorTorque = accFactor * maxTorque * 0.5f;
 		}
 	}
 }
