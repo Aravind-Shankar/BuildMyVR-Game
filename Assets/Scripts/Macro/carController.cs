@@ -1,8 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
+<<<<<<< HEAD
+
+
+public class carController : NetworkBehaviour
+{
+
+       
+=======
 public class carController : MonoBehaviour {
+>>>>>>> refs/remotes/origin/master
 
 	public WheelCollider wheelFL;
 	public WheelCollider wheelFR;
@@ -32,7 +42,7 @@ public class carController : MonoBehaviour {
 		rb = GetComponent<Rigidbody> ();
 		rb.centerOfMass = new Vector3 (0.0f, -0.9f, 0.0f);
 
-		LoadMacroState ();
+		/*LoadMacroState ();*/
 	}
 
 	/*
@@ -54,7 +64,19 @@ public class carController : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
+<<<<<<< HEAD
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+        wheelFL.brakeTorque = 0.0f; 
+		wheelFR.brakeTorque = 0.0f;
+		wheelRR.brakeTorque = 0.0f;
+		wheelRL.brakeTorque = 0.0f;
+
+=======
 		//BrakeAssign ();
+>>>>>>> refs/remotes/origin/master
 		//used to inc the torque linearly
 		//MagnetSensor.OnCardboardTrigger += CarBrakesOn;
 
@@ -87,11 +109,11 @@ public class carController : MonoBehaviour {
 			triggerTime = 0.0f;		
 		}
 
-		if (sceneManager.instance.inSceneTransition)
-			SaveMacroState ();
+		/*if (sceneManager.instance.inSceneTransition)
+			SaveMacroState ();*/
 	}
 
-	void LoadMacroState() {
+	/*void LoadMacroState() {
 		MacroState pastState = sceneManager.instance.GlobalMacroState;
 		if (pastState != null) {
 			transform.position = pastState.carPosition;
@@ -106,6 +128,11 @@ public class carController : MonoBehaviour {
 			
 		globalState.carPosition = transform.position;
 		globalState.carRotation = transform.rotation;
+<<<<<<< HEAD
+	}*/
+
+	void CarBrakes(){
+=======
 	}
 	/*
 	void BrakeAssign(){
@@ -120,6 +147,7 @@ public class carController : MonoBehaviour {
 	}
 	*/
 	void CarBrakesOn(){
+>>>>>>> refs/remotes/origin/master
 			/*if (triggerTime == 0.0f) {
 				wheelFL.brakeTorque = maxFBrake; 
 				wheelFR.brakeTorque = maxFBrake;
