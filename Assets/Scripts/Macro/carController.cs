@@ -3,12 +3,16 @@ using UnityEngine.Networking;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
+<<<<<<< HEAD
 
 
 public class carController : NetworkBehaviour
 {
 
        
+=======
+public class carController : MonoBehaviour {
+>>>>>>> refs/remotes/origin/master
 
 	public WheelCollider wheelFL;
 	public WheelCollider wheelFR;
@@ -20,6 +24,8 @@ public class carController : NetworkBehaviour
 	public float maxSteer = 20.0f;
 	public float maxFBrake = 30.0f;
 	public float maxRBrake = 10.0f;
+
+	private int magState = 0;
 
 	public float maxTorque = 1000.0f;
 	private float acceleration = 100.0f;
@@ -44,14 +50,20 @@ public class carController : NetworkBehaviour
 	}
 	*/
 	void OnEnable() {
-		MagnetSensor.OnCardboardTrigger += CarBrakes;
+		MagnetSensor.OnCardboardTrigger += CarBrakesOn;
 	}
 
 	void OnDisable() {
-		MagnetSensor.OnCardboardTrigger -= CarBrakes;
+		if (magState == 0) {
+			MagnetSensor.OnCardboardTrigger -= CarBrakesOff;
+		}
+		else if (magState == 1) {
+			MagnetSensor.OnCardboardTrigger -= CarBrakesOn;
+		}
 	}
 
 	void FixedUpdate () {
+<<<<<<< HEAD
         if (!isLocalPlayer)
         {
             return;
@@ -61,7 +73,12 @@ public class carController : NetworkBehaviour
 		wheelRR.brakeTorque = 0.0f;
 		wheelRL.brakeTorque = 0.0f;
 
+=======
+		//BrakeAssign ();
+>>>>>>> refs/remotes/origin/master
 		//used to inc the torque linearly
+		//MagnetSensor.OnCardboardTrigger += CarBrakesOn;
+
 		if (accFactor <= 1) {
 			accFactor += acceleration * (Time.deltaTime);
 		}
@@ -69,8 +86,6 @@ public class carController : NetworkBehaviour
 
 		wheelRL.motorTorque = -accFactor * maxTorque;
 		wheelRR.motorTorque = -accFactor * maxTorque;
-
-
 
 		//linearly inc the steering angle using accelerometer
 		if (Mathf.Abs (Input.acceleration.x) > 1.0f) {
@@ -83,8 +98,8 @@ public class carController : NetworkBehaviour
 			wheelFR.steerAngle = maxSteer * Input.acceleration.x;
 		}
 
-		if (Input.GetKeyDown (KeyCode.Space))
-			CarBrakes ();
+		if (Input.GetKey (KeyCode.Space))
+			CarBrakesOn ();
 				
 		if (triggerTimer == true) {
 			triggerTime += Time.deltaTime;
@@ -113,9 +128,26 @@ public class carController : NetworkBehaviour
 			
 		globalState.carPosition = transform.position;
 		globalState.carRotation = transform.rotation;
+<<<<<<< HEAD
 	}*/
 
 	void CarBrakes(){
+=======
+	}
+	/*
+	void BrakeAssign(){
+		if (magState == 0) {
+			MagnetSensor.OnCardboardTrigger -= CarBrakesOff;
+			MagnetSensor.OnCardboardTrigger += CarBrakesOn;
+		}
+		else if (magState == 1) {
+			MagnetSensor.OnCardboardTrigger -= CarBrakesOn;
+			MagnetSensor.OnCardboardTrigger += CarBrakesOff;
+		}
+	}
+	*/
+	void CarBrakesOn(){
+>>>>>>> refs/remotes/origin/master
 			/*if (triggerTime == 0.0f) {
 				wheelFL.brakeTorque = maxFBrake; 
 				wheelFR.brakeTorque = maxFBrake;
@@ -132,10 +164,24 @@ public class carController : NetworkBehaviour
 				triggerTime = 0.0f;
 				triggerTimer = false;
 			}*/
+		magState = 1;
 		wheelFL.brakeTorque = maxFBrake; 
 		wheelFR.brakeTorque = maxFBrake;
 		wheelRR.brakeTorque = maxRBrake;
 		wheelRL.brakeTorque = maxRBrake;
+		MagnetSensor.OnCardboardTrigger -= CarBrakesOn;
+		MagnetSensor.OnCardboardTrigger += CarBrakesOff;
+	}
+
+	void CarBrakesOff(){
+		magState = 0;
+		wheelFL.brakeTorque = 0.0f; 
+		wheelFR.brakeTorque = 0.0f;
+		wheelRR.brakeTorque = 0.0f;
+		wheelRL.brakeTorque = 0.0f;
+		magState = 0;
+		MagnetSensor.OnCardboardTrigger -= CarBrakesOff;
+		MagnetSensor.OnCardboardTrigger += CarBrakesOn;
 	}
 
 	public void AccDefect(){
