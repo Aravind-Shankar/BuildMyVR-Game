@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
 
 
-public class carController : MonoBehaviour {
+public class carController : NetworkBehaviour
+{
+
+       
 
 	public WheelCollider wheelFL;
 	public WheelCollider wheelFR;
@@ -31,7 +35,7 @@ public class carController : MonoBehaviour {
 		rb = GetComponent<Rigidbody> ();
 		rb.centerOfMass = new Vector3 (0.0f, -0.9f, 0.0f);
 
-		LoadMacroState ();
+		/*LoadMacroState ();*/
 	}
 
 	/*
@@ -48,8 +52,11 @@ public class carController : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-
-		wheelFL.brakeTorque = 0.0f; 
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+        wheelFL.brakeTorque = 0.0f; 
 		wheelFR.brakeTorque = 0.0f;
 		wheelRR.brakeTorque = 0.0f;
 		wheelRL.brakeTorque = 0.0f;
@@ -87,11 +94,11 @@ public class carController : MonoBehaviour {
 			triggerTime = 0.0f;		
 		}
 
-		if (sceneManager.instance.inSceneTransition)
-			SaveMacroState ();
+		/*if (sceneManager.instance.inSceneTransition)
+			SaveMacroState ();*/
 	}
 
-	void LoadMacroState() {
+	/*void LoadMacroState() {
 		MacroState pastState = sceneManager.instance.GlobalMacroState;
 		if (pastState != null) {
 			transform.position = pastState.carPosition;
@@ -106,7 +113,7 @@ public class carController : MonoBehaviour {
 			
 		globalState.carPosition = transform.position;
 		globalState.carRotation = transform.rotation;
-	}
+	}*/
 
 	void CarBrakes(){
 			/*if (triggerTime == 0.0f) {
