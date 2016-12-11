@@ -3,16 +3,8 @@ using UnityEngine.Networking;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-<<<<<<< HEAD
-
-
 public class carController : NetworkBehaviour
 {
-
-       
-=======
-public class carController : MonoBehaviour {
->>>>>>> refs/remotes/origin/master
 
 	public WheelCollider wheelFL;
 	public WheelCollider wheelFR;
@@ -32,9 +24,9 @@ public class carController : MonoBehaviour {
 	private float accFactor = 0.0f;
 	public bool isAccDefect;
 
-	private float triggerTime = 0.0f; //time after which the trigger has been pulled
-	private bool triggerTimer; //says whether the timer is on or off
-	public float triggerCutoffTime = 1.0f; //time interval for the double click. (triggers the scene change)
+	//private float triggerTime = 0.0f; //time after which the trigger has been pulled
+	//private bool triggerTimer; //says whether the timer is on or off
+	//public float triggerCutoffTime = 1.0f; //time interval for the double click. (triggers the scene change)
 
 	private bool revOrFor = true;
 	// Use this for initialization
@@ -64,27 +56,16 @@ public class carController : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-<<<<<<< HEAD
         if (!isLocalPlayer)
         {
             return;
         }
-        wheelFL.brakeTorque = 0.0f; 
-		wheelFR.brakeTorque = 0.0f;
-		wheelRR.brakeTorque = 0.0f;
-		wheelRL.brakeTorque = 0.0f;
 
-=======
-		//BrakeAssign ();
->>>>>>> refs/remotes/origin/master
-		//used to inc the torque linearly
-		//MagnetSensor.OnCardboardTrigger += CarBrakesOn;
-
+		// used to inc the torque linearly
 		if (accFactor <= 1) {
 			accFactor += acceleration * (Time.deltaTime);
 		}
-		AccDefect ();
-
+		//AccDefect ();
 		Torque ();
 
 		//linearly inc the steering angle using accelerometer
@@ -101,13 +82,13 @@ public class carController : MonoBehaviour {
 		if (Input.GetKey (KeyCode.Space))
 			CarBrakesOn ();
 				
-		if (triggerTimer == true) {
+		/*if (triggerTimer == true) {
 			triggerTime += Time.deltaTime;
 		} 
 
 		else {
 			triggerTime = 0.0f;		
-		}
+		}*/
 
 		/*if (sceneManager.instance.inSceneTransition)
 			SaveMacroState ();*/
@@ -128,12 +109,8 @@ public class carController : MonoBehaviour {
 			
 		globalState.carPosition = transform.position;
 		globalState.carRotation = transform.rotation;
-<<<<<<< HEAD
 	}*/
 
-	void CarBrakes(){
-=======
-	}
 	/*
 	void BrakeAssign(){
 		if (magState == 0) {
@@ -146,24 +123,8 @@ public class carController : MonoBehaviour {
 		}
 	}
 	*/
-	void CarBrakesOn(){
->>>>>>> refs/remotes/origin/master
-			/*if (triggerTime == 0.0f) {
-				wheelFL.brakeTorque = maxFBrake; 
-				wheelFR.brakeTorque = maxFBrake;
-				wheelRR.brakeTorque = maxRBrake;
-				wheelRL.brakeTorque = maxRBrake;
-				triggerTimer = true;
 
-			}
-			else if (triggerTime >= triggerCutoffTime) {
-				wheelFL.brakeTorque = 0.0f;
-				wheelFR.brakeTorque = 0.0f;
-				wheelRL.brakeTorque = 0.0f; 
-				wheelRR.brakeTorque = 0.0f;
-				triggerTime = 0.0f;
-				triggerTimer = false;
-			}*/
+	void CarBrakesOn(){
 		magState = 1;
 		if (rb.velocity.z <= 0.0f && rb.velocity.z >= -0.3f) {
 			revOrFor = false;
@@ -208,8 +169,8 @@ public class carController : MonoBehaviour {
 			wheelRR.motorTorque = -accFactor * maxTorque;
 		}
 		else {
-			wheelRL.motorTorque = accFactor * maxTorque;
-			wheelRR.motorTorque = accFactor * maxTorque;
+			wheelRL.motorTorque = accFactor * maxTorque * 0.5f;
+			wheelRR.motorTorque = accFactor * maxTorque * 0.5f;
 		}
 	}
 }
