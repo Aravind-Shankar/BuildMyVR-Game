@@ -160,7 +160,6 @@ GameObject:
   - 20: {fileID: 20000012384653672}
   - 124: {fileID: 124000010993549542}
   - 92: {fileID: 92000011511961222}
-  - 81: {fileID: 81000014040026638}
   - 114: {fileID: 114000011177742302}
   - 114: {fileID: 114000012850760524}
   - 114: {fileID: 114000012427063962}
@@ -316,10 +315,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010817756184}
   - 54: {fileID: 54000012906925674}
-  - 114: {fileID: 114000013073808288}
-  - 114: {fileID: 114000010485073478}
-  - 114: {fileID: 114000012333565138}
-  - 114: {fileID: 114000013099904200}
+  - 114: {fileID: 114000012939249368}
+  - 114: {fileID: 114000013183445348}
+  - 114: {fileID: 114000013533419238}
+  - 114: {fileID: 114000010749825674}
   m_Layer: 0
   m_Name: CarVR V2.0
   m_TagString: Untagged
@@ -404,7 +403,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014006262166}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.58, y: 0.34, z: -10.673}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -695,7 +694,7 @@ Camera:
   m_GameObject: {fileID: 1000011582537680}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -932,13 +931,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4, y: 13, z: 3}
   m_Center: {x: 0, y: -1.2379276, z: 0.88584113}
---- !u!81 &81000014040026638
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011582537680}
-  m_Enabled: 1
 --- !u!92 &92000010095367618
 Behaviour:
   m_ObjectHideFlags: 1
@@ -970,7 +962,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114000010485073478
+--- !u!114 &114000010749825674
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1115,26 +1107,6 @@ MonoBehaviour:
   toggleCullingMask:
     serializedVersion: 2
     m_Bits: 0
---- !u!114 &114000012333565138
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014006262166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3586329ec20e7654c82fe204daaa1667, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wheelFL: {fileID: 0}
-  wheelFR: {fileID: 0}
-  wheelRL: {fileID: 0}
-  wheelRR: {fileID: 0}
-  maxSteer: 20
-  maxFBrake: 30
-  maxRBrake: 10
-  maxTorque: 150
-  isAccDefect: 0
 --- !u!114 &114000012427063962
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1166,7 +1138,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   quality: 2
---- !u!114 &114000013073808288
+--- !u!114 &114000012939249368
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1198,19 +1170,6 @@ MonoBehaviour:
     i15: 153
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
---- !u!114 &114000013099904200
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014006262166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a60b356a751ca254eb47e6408bc1fe55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDefect: 0
-  speedText: {fileID: 0}
 --- !u!114 &114000013166061608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1226,6 +1185,39 @@ MonoBehaviour:
   toggleCullingMask:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &114000013183445348
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014006262166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3586329ec20e7654c82fe204daaa1667, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wheelFL: {fileID: 146000012975060640, guid: 0e8b59c3e42347b4b923f4ff881da497, type: 2}
+  wheelFR: {fileID: 146000011385463492, guid: 0e8b59c3e42347b4b923f4ff881da497, type: 2}
+  wheelRL: {fileID: 146000013242066070, guid: 0e8b59c3e42347b4b923f4ff881da497, type: 2}
+  wheelRR: {fileID: 146000011573382320, guid: 0e8b59c3e42347b4b923f4ff881da497, type: 2}
+  maxSteer: 20
+  maxFBrake: 30
+  maxRBrake: 10
+  maxTorque: 150
+  isAccDefect: 0
+--- !u!114 &114000013533419238
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014006262166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a60b356a751ca254eb47e6408bc1fe55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDefect: 0
+  speedText: {fileID: 0}
 --- !u!114 &114000013728620868
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1421,7 +1413,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 2
   m_RenderMode: 2
-  m_Camera: {fileID: 20000012262710532}
+  m_Camera: {fileID: 20000012384653672}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1

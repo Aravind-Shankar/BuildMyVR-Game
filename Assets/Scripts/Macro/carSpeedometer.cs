@@ -22,11 +22,11 @@ public class carSpeedometer : MonoBehaviour {
 			carSpeed = carRB.velocity.magnitude;
 			carSpeed = carSpeed * (5.0f / 18.0f);
 			carSpeed = (int)carSpeed;	
-			speedText.text = "Speed " + carSpeed + " kmph";
+			//speedText.text = "Speed " + carSpeed + " kmph";
 		}
 		else if (isDefect) {
 			carSpeed = (int)carSpeed;	
-			speedText.text = "Speed " + carSpeed + " kmph DEFECTIVE";
+			//speedText.text = "Speed " + carSpeed + " kmph DEFECTIVE";
 		}
 
 	}
