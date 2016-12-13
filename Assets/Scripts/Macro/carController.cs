@@ -24,15 +24,11 @@ public class carController : NetworkBehaviour
 	private float accFactor = 0.0f;
 	public bool isAccDefect;
 
-	//private float triggerTime = 0.0f; //time after which the trigger has been pulled
-	//private bool triggerTimer; //says whether the timer is on or off
-	//public float triggerCutoffTime = 1.0f; //time interval for the double click. (triggers the scene change)
-
 	private bool revOrFor = true;
-	// Use this for initialization
+
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
-		rb.centerOfMass = new Vector3 (0.0f, -0.9f, 0.0f);
+		//rb.centerOfMass = new Vector3 (0.0f, -0.9f, 0.0f);
 
 		/*LoadMacroState ();*/
 	}
@@ -42,6 +38,7 @@ public class carController : NetworkBehaviour
 		GUI.Label (new Rect (10.0f, 10.0f, 50.0f, 50.0f), "Acc Defective: " + isAccDefect);
 	}
 	*/
+
 	void OnEnable() {
 		MagnetSensor.OnCardboardTrigger += CarBrakesOn;
 	}
@@ -65,6 +62,7 @@ public class carController : NetworkBehaviour
 		if (accFactor <= 1) {
 			accFactor += acceleration * (Time.deltaTime);
 		}
+
 		//AccDefect ();
 		Torque ();
 
@@ -73,7 +71,6 @@ public class carController : NetworkBehaviour
 			wheelFL.steerAngle = maxSteer;
 			wheelFR.steerAngle = maxSteer;
 		} 
-
 		else {
 			wheelFL.steerAngle = maxSteer * Input.acceleration.x;
 			wheelFR.steerAngle = maxSteer * Input.acceleration.x;
@@ -165,12 +162,12 @@ public class carController : NetworkBehaviour
 
 	private void Torque (){
 		if (revOrFor) {
-			wheelRL.motorTorque = -accFactor * maxTorque;
-			wheelRR.motorTorque = -accFactor * maxTorque;
-		}
-		else {
 			wheelRL.motorTorque = accFactor * maxTorque * 0.5f;
 			wheelRR.motorTorque = accFactor * maxTorque * 0.5f;
+		}
+		else {
+			wheelRL.motorTorque = -accFactor * maxTorque;
+			wheelRR.motorTorque = -accFactor * maxTorque;
 		}
 	}
 }
