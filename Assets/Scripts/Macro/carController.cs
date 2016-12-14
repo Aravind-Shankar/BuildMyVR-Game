@@ -33,6 +33,12 @@ public class carController : NetworkBehaviour
 		/*LoadMacroState ();*/
 	}
 
+	public override void OnStartLocalPlayer() {
+		if (DummyCamController.singleton != null)
+			DummyCamController.singleton.DeactivateCamera ();
+		gameObject.transform.FindChild ("GvrMain").gameObject.SetActive (true);
+	}
+
 	/*
 	void OnGUI(){
 		GUI.Label (new Rect (10.0f, 10.0f, 50.0f, 50.0f), "Acc Defective: " + isAccDefect);
@@ -58,12 +64,17 @@ public class carController : NetworkBehaviour
 		SetSteerAngle ();
 		SetBrakeTorque ();
 
-		if (Input.GetKeyDown (KeyCode.Space))
-			ToggleBrakes ();
-				
 		/*if (sceneManager.instance.inSceneTransition)
 			SaveMacroState ();*/
 	}
+
+	// apparently key-press events are handled properly only in Update/LateUpdate
+	#if UNITY_EDITOR
+	void Update() {
+		if (Input.GetKeyDown (KeyCode.Space))
+			ToggleBrakes ();
+	}
+	#endif
 
 	/*void LoadMacroState() {
 		MacroState pastState = sceneManager.instance.GlobalMacroState;
