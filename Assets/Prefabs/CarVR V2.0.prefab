@@ -1203,7 +1203,7 @@ MonoBehaviour:
   maxSteer: 20
   maxFBrake: 30
   maxRBrake: 10
-  maxTorque: 50
+  maxTorque: 75
   isAccDefect: 0
 --- !u!114 &114000013533419238
 MonoBehaviour:
