@@ -1200,10 +1200,11 @@ MonoBehaviour:
   wheelFR: {fileID: 146000012576750158}
   wheelRL: {fileID: 146000014079577446}
   wheelRR: {fileID: 146000013984954204}
-  maxSteer: 20
-  maxFBrake: 30
-  maxRBrake: 10
-  maxTorque: 75
+  maxSteer: 10
+  maxFBrake: 200
+  maxRBrake: 100
+  reverseThresholdSpeed: 0.05
+  maxTorque: 30
   isAccDefect: 0
 --- !u!114 &114000013533419238
 MonoBehaviour:
@@ -1218,6 +1219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDefect: 0
   speedText: {fileID: 114000011317702782}
+  scaleFactor: 10
 --- !u!114 &114000013728620868
 MonoBehaviour:
   m_ObjectHideFlags: 1

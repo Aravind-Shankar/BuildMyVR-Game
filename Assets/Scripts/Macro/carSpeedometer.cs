@@ -8,7 +8,7 @@ public class carSpeedometer : MonoBehaviour {
 	private float carSpeed;
 	public bool isDefect = false;
 	public Text speedText;
-
+	public float scaleFactor = 1.0f;	// to account for model scaling
 
 	// Use this for initialization
 	void Start () {
@@ -20,7 +20,7 @@ public class carSpeedometer : MonoBehaviour {
 	void FixedUpdate () {
 		if (!isDefect) {
 			carSpeed = carRB.velocity.magnitude;
-			carSpeed = carSpeed * (5.0f / 18.0f);
+			carSpeed = carSpeed * (5.0f / 18.0f) * scaleFactor;
 			carSpeed = (int)carSpeed;	
 			speedText.text = "Speed " + carSpeed + " kmph";
 		}

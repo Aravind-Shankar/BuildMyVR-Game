@@ -16,8 +16,7 @@ public class carController : NetworkBehaviour
 	public float maxSteer = 20.0f;
 	public float maxFBrake = 30.0f;
 	public float maxRBrake = 10.0f;
-
-	private int magState = 0;
+	public float reverseThresholdSpeed = 0.05f;
 
 	public float maxTorque = 1000.0f;
 	private float acceleration = 100.0f;
@@ -25,6 +24,7 @@ public class carController : NetworkBehaviour
 	public bool isAccDefect;
 
 	private bool revOrFor = true;
+	private bool braking = false;
 
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
@@ -40,16 +40,11 @@ public class carController : NetworkBehaviour
 	*/
 
 	void OnEnable() {
-		MagnetSensor.OnCardboardTrigger += CarBrakesOn;
+		MagnetSensor.OnCardboardTrigger += ToggleBrakes;
 	}
 
 	void OnDisable() {
-		if (magState == 0) {
-			MagnetSensor.OnCardboardTrigger -= CarBrakesOff;
-		}
-		else if (magState == 1) {
-			MagnetSensor.OnCardboardTrigger -= CarBrakesOn;
-		}
+		MagnetSensor.OnCardboardTrigger -= ToggleBrakes;
 	}
 
 	void FixedUpdate () {
@@ -58,35 +53,14 @@ public class carController : NetworkBehaviour
             return;
         }
 
-		// used to inc the torque linearly
-		if (accFactor <= 1) {
-			accFactor += acceleration * (Time.deltaTime);
-		}
-
 		//AccDefect ();
-		Torque ();
+		SetMotorTorque ();
+		SetSteerAngle ();
+		SetBrakeTorque ();
 
-		//linearly inc the steering angle using accelerometer
-		if (Mathf.Abs (Input.acceleration.x) > 1.0f) {
-			wheelFL.steerAngle = maxSteer;
-			wheelFR.steerAngle = maxSteer;
-		} 
-		else {
-			wheelFL.steerAngle = maxSteer * Input.acceleration.x;
-			wheelFR.steerAngle = maxSteer * Input.acceleration.x;
-		}
-
-		if (Input.GetKey (KeyCode.Space))
-			CarBrakesOn ();
+		if (Input.GetKeyDown (KeyCode.Space))
+			ToggleBrakes ();
 				
-		/*if (triggerTimer == true) {
-			triggerTime += Time.deltaTime;
-		} 
-
-		else {
-			triggerTime = 0.0f;		
-		}*/
-
 		/*if (sceneManager.instance.inSceneTransition)
 			SaveMacroState ();*/
 	}
@@ -108,38 +82,51 @@ public class carController : NetworkBehaviour
 		globalState.carRotation = transform.rotation;
 	}*/
 
-	/*
-	void BrakeAssign(){
-		if (magState == 0) {
-			MagnetSensor.OnCardboardTrigger -= CarBrakesOff;
-			MagnetSensor.OnCardboardTrigger += CarBrakesOn;
+	void ToggleBrakes() {
+		braking = !braking;
+	}
+
+	void ToggleDirection() {
+		revOrFor = !revOrFor;
+		accFactor = 0.0f;
+	}
+
+	private void SetMotorTorque (){
+		// if moving forward under brakes and velocity falls below thresh,
+		// start moving in reverse and stop braking
+		if (braking && rb.velocity.magnitude < reverseThresholdSpeed) {
+			ToggleDirection ();
+			ToggleBrakes ();
 		}
-		else if (magState == 1) {
-			MagnetSensor.OnCardboardTrigger -= CarBrakesOn;
-			MagnetSensor.OnCardboardTrigger += CarBrakesOff;
+
+		// used to inc the torque linearly
+		if (accFactor <= 1) {
+			accFactor += acceleration * (Time.deltaTime);
+		}
+
+		if (revOrFor) {
+			wheelRL.motorTorque = accFactor * maxTorque;
+			wheelRR.motorTorque = accFactor * maxTorque;
+		}
+		else {
+			wheelRL.motorTorque = -accFactor * maxTorque;
+			wheelRR.motorTorque = -accFactor * maxTorque;
 		}
 	}
-	*/
 
-	void CarBrakesOn(){
-		magState = 1;
-		if (rb.velocity.z <= 0.0f && rb.velocity.z >= -0.3f) {
-			revOrFor = false;
-		} 
-		else {
+	private void SetSteerAngle() {
+		// clamp the steering angle using accelerometer input
+		float inputFactor = Mathf.Clamp(Input.acceleration.x, -1f, 1f);
+		wheelFL.steerAngle = maxSteer * inputFactor;
+		wheelFR.steerAngle = maxSteer * inputFactor;
+	}
+
+	private void SetBrakeTorque() {
+		if (braking) {
 			wheelFL.brakeTorque = maxFBrake; 
 			wheelFR.brakeTorque = maxFBrake;
 			wheelRR.brakeTorque = maxRBrake;
 			wheelRL.brakeTorque = maxRBrake;
-		}
-		MagnetSensor.OnCardboardTrigger -= CarBrakesOn;
-		MagnetSensor.OnCardboardTrigger += CarBrakesOff;
-	}
-
-	void CarBrakesOff(){
-		magState = 0;
-		if (!revOrFor) {
-			revOrFor = true;
 		}
 		else {
 			wheelFL.brakeTorque = 0.0f; 
@@ -147,8 +134,6 @@ public class carController : NetworkBehaviour
 			wheelRR.brakeTorque = 0.0f;
 			wheelRL.brakeTorque = 0.0f;
 		}
-		MagnetSensor.OnCardboardTrigger -= CarBrakesOff;
-		MagnetSensor.OnCardboardTrigger += CarBrakesOn;
 	}
 
 	public void AccDefect(){
@@ -157,17 +142,6 @@ public class carController : NetworkBehaviour
 			if (accFactor < 0.0f) {
 				accFactor = 0.0f;
 			}
-		}
-	}
-
-	private void Torque (){
-		if (revOrFor) {
-			wheelRL.motorTorque = accFactor * maxTorque * 0.5f;
-			wheelRR.motorTorque = accFactor * maxTorque * 0.5f;
-		}
-		else {
-			wheelRL.motorTorque = -accFactor * maxTorque;
-			wheelRR.motorTorque = -accFactor * maxTorque;
 		}
 	}
 }
