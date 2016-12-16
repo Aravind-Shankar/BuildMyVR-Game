@@ -217,7 +217,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 838113717}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -859942077, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 9795698d2c680c244af1d4b293538326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_NetworkPort: 7777
@@ -280,7 +280,7 @@ MonoBehaviour:
   m_ShowLobbyGUI: 1
   m_MaxPlayers: 4
   m_MaxPlayersPerConnection: 1
-  m_MinPlayers: 1
+  m_MinPlayers: 2
   m_LobbyPlayerPrefab: {fileID: 114000012075007822, guid: 43b78d9b7428cb343be804f7829f9a77,
     type: 2}
   m_GamePlayerPrefab: {fileID: 1000014006262166, guid: bf39c151198d45e4aa36469d77afc499,

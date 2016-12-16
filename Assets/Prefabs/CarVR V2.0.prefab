@@ -315,9 +315,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010817756184}
   - 54: {fileID: 54000012906925674}
-  - 114: {fileID: 114000012939249368}
   - 114: {fileID: 114000013183445348}
+  - 114: {fileID: 114000010838539080}
   - 114: {fileID: 114000013533419238}
+  - 114: {fileID: 114000012939249368}
   - 114: {fileID: 114000010749825674}
   m_Layer: 0
   m_Name: CarVR V2.0
@@ -982,6 +983,17 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
+--- !u!114 &114000010838539080
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014006262166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eed3f6037cf4c94785752b58104b0e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000011177742302
 MonoBehaviour:
   m_ObjectHideFlags: 1
