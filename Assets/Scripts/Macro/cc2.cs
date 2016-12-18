@@ -15,6 +15,10 @@ public class cc2 : MonoBehaviour {
 
 	private int magState = 0;
 
+	private int numberOfCP = 0;
+
+	public GameObject c;
+
 	public float maxTorque = 1000.0f;
 	private float acceleration = 70.0f;
 	private float accFactor = 0.0f;
@@ -29,6 +33,8 @@ public class cc2 : MonoBehaviour {
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
 		rb.centerOfMass = new Vector3 (0.0f, -0.9f, 0.0f);
+
+		numberOfCP = c.transform.childCount;
 
 		LoadMacroState ();
 	}
@@ -83,8 +89,11 @@ public class cc2 : MonoBehaviour {
 			triggerTime = 0.0f;		
 		}
 
-		if (sceneManager.instance.inSceneTransition)
+		if (sceneManager.instance.inSceneTransition) {
 			SaveMacroState ();
+		}
+
+
 	}
 
 	void LoadMacroState() {
@@ -153,6 +162,16 @@ public class cc2 : MonoBehaviour {
 		else {
 			wheelRL.motorTorque = accFactor * maxTorque * 0.5f;
 			wheelRR.motorTorque = accFactor * maxTorque * 0.5f;
+		}
+	}
+
+	void OnTriggerExit(Collider other) {
+		if (other.CompareTag ("Checkpoint")) {
+			print ("triggered");
+			numberOfCP -= 1;
+		}
+		if (numberOfCP <= 0) {
+			print ("You Win!!!");
 		}
 	}
 }

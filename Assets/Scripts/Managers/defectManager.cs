@@ -8,7 +8,7 @@ public class defectManager : MonoBehaviour {
 	private float accelerationDefectTime;
 	public GameObject car;
 	private carSpeedometer s;
-	private carController c;
+	private cc2 c;
 	private Random r;
 	private static int l;
 							
@@ -22,7 +22,7 @@ public class defectManager : MonoBehaviour {
 		print (speedometerDefectTime);
 
 		accelerationDefectTime = 10.0f * nonRepRandom (1, 5);
-		c = car.GetComponent<carController> ();
+		c = car.GetComponent<cc2> ();
 		accelerationDefectTime += (10.0f) * (Random.value);
 
 		print (accelerationDefectTime);

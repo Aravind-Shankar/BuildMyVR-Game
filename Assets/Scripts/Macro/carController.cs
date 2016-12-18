@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿/*
+using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
 using UnityEngine.SceneManagement;
@@ -43,13 +44,14 @@ public class carController : MonoBehaviour {
 		rb.centerOfMass = new Vector3 (0.0f, -0.9f, 0.0f);
 
 		/*LoadMacroState ();*/
-	}
+	//}
 
 	/*
 	void OnGUI(){
 		GUI.Label (new Rect (10.0f, 10.0f, 50.0f, 50.0f), "Acc Defective: " + isAccDefect);
 	}
 	*/
+/*
 	void OnEnable() {
 		MagnetSensor.OnCardboardTrigger += CarBrakesOn;
 	}
@@ -111,7 +113,7 @@ public class carController : MonoBehaviour {
 
 		/*if (sceneManager.instance.inSceneTransition)
 			SaveMacroState ();*/
-	}
+	//}
 
 	/*void LoadMacroState() {
 		MacroState pastState = sceneManager.instance.GlobalMacroState;
@@ -130,7 +132,7 @@ public class carController : MonoBehaviour {
 		globalState.carRotation = transform.rotation;
 <<<<<<< HEAD
 	}*/
-
+/*
 	void CarBrakes(){
 =======
 	}
@@ -146,6 +148,7 @@ public class carController : MonoBehaviour {
 		}
 	}
 	*/
+/*
 	void CarBrakesOn(){
 >>>>>>> refs/remotes/origin/master
 			/*if (triggerTime == 0.0f) {
@@ -164,7 +167,7 @@ public class carController : MonoBehaviour {
 				triggerTime = 0.0f;
 				triggerTimer = false;
 			}*/
-		magState = 1;
+/*		magState = 1;
 		if (rb.velocity.z <= 0.0f && rb.velocity.z >= -0.3f) {
 			revOrFor = false;
 		} 
@@ -213,3 +216,4 @@ public class carController : MonoBehaviour {
 		}
 	}
 }
+*/
