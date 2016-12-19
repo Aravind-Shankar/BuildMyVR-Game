@@ -187,6 +187,7 @@ GameObject:
   - 4: {fileID: 838113720}
   - 114: {fileID: 838113719}
   - 114: {fileID: 838113718}
+  - 114: {fileID: 838113721}
   m_Layer: 0
   m_Name: Globals
   m_TagString: Untagged
@@ -301,6 +302,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!114 &838113721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 838113717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11ad613f65cbd234bb28eed60c1da8ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BroadcastPort: 47777
+  m_BroadcastKey: 2222
+  m_BroadcastVersion: 1
+  m_BroadcastSubVersion: 1
+  m_BroadcastInterval: 1000
+  m_UseNetworkManager: 1
+  m_BroadcastData: HELLO
+  m_ShowGUI: 1
+  m_OffsetX: 0
+  m_OffsetY: 0
 --- !u!1 &1849191980
 GameObject:
   m_ObjectHideFlags: 0
