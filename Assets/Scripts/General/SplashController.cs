@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StartCamMovement : MonoBehaviour {
+public class SplashController : MonoBehaviour {
 
 	public Camera camera;
 	public string camPathName;
@@ -12,6 +12,8 @@ public class StartCamMovement : MonoBehaviour {
 	public float carMoveTime;
 
 	public float intervalTime;
+
+	public Animator mainMenuAnimator;
 
 	public void StartMovement() {
 		this.camera.clearFlags = CameraClearFlags.Skybox;
@@ -29,6 +31,8 @@ public class StartCamMovement : MonoBehaviour {
 			"path", iTweenPath.GetPath(this.carPathName),
 			"time", carMoveTime
 		));
+		yield return new WaitForSeconds (carMoveTime);
+		mainMenuAnimator.SetTrigger ("startPlaying");
 		yield return null;
 	}
 }
