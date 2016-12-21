@@ -2290,8 +2290,8 @@ MonoBehaviour:
   pathName: Cam Path
   pathColor: {r: 0, g: 1, b: 1, a: 1}
   nodes:
-  - {x: 106.70654, y: 71, z: 55}
-  - {x: 31.226543, y: 22.141373, z: 131.93083}
+  - {x: -13.027229, y: 17.61938, z: 18.577961}
+  - {x: 31.226543, y: 9.238255, z: 131.93083}
   - {x: 56.101555, y: -6.5, z: 246.66144}
   nodeCount: 3
   initialized: 1
@@ -2407,7 +2407,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: c9d6234464da14e6fa7c9b0226dfcecf, type: 3}
-    m_FontSize: 40
+    m_FontSize: 36
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -3816,6 +3816,52 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 11786ea4822f6214397607504b10357d, type: 3}
   m_PrefabInternal: {fileID: 1630302384}
+--- !u!1 &1690542165
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1690542167}
+  - 114: {fileID: 1690542166}
+  m_Layer: 0
+  m_Name: Transition Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1690542166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1690542165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cad3470a11aec441be64a758f2fc756, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  splashFields:
+    splashShown: 0
+    cameraEndPoint: {x: 56.10155, y: -6.5, z: 246.6614}
+    splashCanvas: {fileID: 1474079808}
+    splashAnimator: {fileID: 1474079805}
+    splashController: {fileID: 1474079810}
+--- !u!4 &1690542167
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1690542165}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 24.607025, y: 28.22141, z: 49.375275}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
 --- !u!1 &1719394114
 GameObject:
   m_ObjectHideFlags: 0
@@ -4125,7 +4171,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: c9d6234464da14e6fa7c9b0226dfcecf, type: 3}
-    m_FontSize: 40
+    m_FontSize: 36
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -4644,7 +4690,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.178}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.039215688}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

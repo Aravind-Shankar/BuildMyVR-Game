@@ -27,6 +27,10 @@ public class SplashController : MonoBehaviour {
 
 	IEnumerator WaitAndStartCar() {
 		yield return new WaitForSeconds(intervalTime);
+		yield return StartCarWithMenu ();
+	}
+
+	public IEnumerator StartCarWithMenu() {
 		iTween.MoveTo(carVR, iTween.Hash(
 			"path", iTweenPath.GetPath(this.carPathName),
 			"time", carMoveTime
