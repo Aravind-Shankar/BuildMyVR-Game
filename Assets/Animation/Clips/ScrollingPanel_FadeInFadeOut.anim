@@ -926,9 +926,9 @@ AnimationClip:
   m_GenerateMotionCurves: 0
   m_Events:
   - time: 3
-    functionName: StartLinkedAnimator
+    functionName: StartMovement
     data: 
     objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
+    floatParameter: 5
     intParameter: 1
     messageOptions: 0
