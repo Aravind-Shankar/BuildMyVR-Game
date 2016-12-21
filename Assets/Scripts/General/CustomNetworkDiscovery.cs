@@ -20,15 +20,6 @@ public class CustomNetworkDiscovery : NetworkDiscovery {
 		NetworkManager.singleton.networkAddress =
 			fromAddress.Substring (fromAddress.LastIndexOf (':') + 1);
 
-		// data format is "PORT:NAME"
-		//int splitIndex = data.IndexOf(':');
-		//NetworkManager.singleton.networkPort = int.Parse(data.Substring (0, splitIndex));
-
-		/*debugText = string.Format ("Connecting to addr {0} port {1}",
-			NetworkManager.singleton.networkAddress, NetworkManager.singleton.networkPort
-		);
-		Debug.Log (debugText);*/
-
 		if (NetworkManager.singleton.client == null) {
 			NetworkManager.singleton.StartClient ();
 			Debug.Log ("starting as client");

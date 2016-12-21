@@ -19,7 +19,7 @@ public class DiscoveryTester : MonoBehaviour {
 	public void StartAsHost() {
 		//clientStatusText.text = "Trying to start as host";
 
-		discovery.broadcastData = discovery.broadcastPort + ":" + playerNameField.text;
+		discovery.broadcastData = playerNameField.text;
 		discovery.Initialize ();
 		if (!discovery.StartAsServer ()) {
 			//serverStatusText.text = "Unable to start as host";
