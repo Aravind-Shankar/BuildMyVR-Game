@@ -7,37 +7,45 @@ public class DiscoveryTester : MonoBehaviour {
 	public CustomNetworkDiscovery discovery;
 
 	public InputField playerNameField;
-	public Text serverStatusText, clientStatusText;
+	//public Text serverStatusText, clientStatusText;
+
+	private CustomNetworkLobbyManager manager;
 
 	void OnEnable() {
 		discovery.broadcastPort = 7777;
+		manager = NetworkManager.singleton as CustomNetworkLobbyManager;
 	}
 
-	public void StartAsServer() {
-		clientStatusText.text = "Trying to start as server";
+	public void StartAsHost() {
+		//clientStatusText.text = "Trying to start as host";
 
-		discovery.broadcastData = playerNameField.text;
+		discovery.broadcastData = discovery.broadcastPort + ":" + playerNameField.text;
 		discovery.Initialize ();
 		if (!discovery.StartAsServer ()) {
-			serverStatusText.text = "Unable to start as server";
+			//serverStatusText.text = "Unable to start as host";
 		} else {
-			serverStatusText.text = "Server up with data " + discovery.broadcastData;
+			manager.StartHost ();
+			//serverStatusText.text = "Server up with data " + discovery.broadcastData;
 		}
 	}
 
 	public void StartAsClient() {
-		serverStatusText.text = "Trying to start as client";
+		//serverStatusText.text = "Trying to start as client";
 
-		discovery.broadcastData = playerNameField.text;
 		discovery.Initialize ();
 		if (!discovery.StartAsClient ()) {
-			clientStatusText.text = "Unable to start as client";
+			//clientStatusText.text = "Unable to start as client";
 		} else {
-			clientStatusText.text = "Listening...";
+			//clientStatusText.text = "Listening...";
 		}
 	}
 
 	public void ReceivedBroadcast(string debugText) {
-		clientStatusText.text = debugText;
+		//clientStatusText.text = debugText;
+	}
+
+	void OnDisable() {
+		if (discovery.running)
+			discovery.StopBroadcast ();
 	}
 }

@@ -9,7 +9,7 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
 	{
 		LobbyPlayer lobbyPlayerComponent = lobbyPlayer.GetComponent<LobbyPlayer> ();
 		CarPlayer carPlayerComponent = gamePlayer.GetComponent<CarPlayer> ();
-
+		carPlayerComponent.name = lobbyPlayerComponent.name;
 		return true;
 	}
 
