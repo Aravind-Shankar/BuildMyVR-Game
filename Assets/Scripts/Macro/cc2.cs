@@ -15,7 +15,7 @@ public class cc2 : MonoBehaviour {
 
 	private int magState = 0;
 
-	private int numberOfCP = 0;
+	public int numberOfCP = 0;
 
 	public GameObject c;
 
@@ -167,11 +167,11 @@ public class cc2 : MonoBehaviour {
 
 	void OnTriggerExit(Collider other) {
 		if (other.CompareTag ("Checkpoint")) {
-			print ("triggered");
 			numberOfCP -= 1;
 		}
+		/*
 		if (numberOfCP <= 0) {
 			print ("You Win!!!");
-		}
+		}*/
 	}
 }
