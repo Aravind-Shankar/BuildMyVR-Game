@@ -16,7 +16,7 @@ public class cc2 : MonoBehaviour {
 	private int magState = 0;
 
 	public int numberOfCP = 0;
-
+	public int cpCount = 0;
 	public GameObject c;
 
 	public float maxTorque = 1000.0f;
@@ -166,12 +166,13 @@ public class cc2 : MonoBehaviour {
 	}
 
 	void OnTriggerExit(Collider other) {
-		if (other.CompareTag ("Checkpoint")) {
-			numberOfCP -= 1;
+		int i = other.GetComponent<checkpointScript> ().index;
+		if (other.CompareTag ("Checkpoint") && i == cpCount) {
+			cpCount += 1;
 		}
-		/*
-		if (numberOfCP <= 0) {
-			print ("You Win!!!");
-		}*/
+
+		else if (other.CompareTag ("Checkpoint") && i == cpCount-1){
+			cpCount -=1;
+		}
 	}
 }
