@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class TransitionManager : MonoBehaviour {
@@ -31,6 +32,14 @@ public class TransitionManager : MonoBehaviour {
 			else
 				splashFields.splashShown = true;
 		}
+	}
+
+	public void ChangeToLobby() {
+		splashFields.splashCanvas = null;
+		splashFields.splashAnimator = null;
+		splashFields.splashController = null;
+
+		SceneManager.LoadScene ("Lobby");
 	}
 
 	[System.Serializable]

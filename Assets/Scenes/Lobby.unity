@@ -565,8 +565,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 838113720}
-  - 114: {fileID: 838113719}
   - 114: {fileID: 838113718}
+  - 114: {fileID: 838113719}
   - 114: {fileID: 838113721}
   - 114: {fileID: 838113722}
   m_Layer: 0
@@ -584,13 +584,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 838113717}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 227461547, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 032df58ec2e8dd6419368615e62fe0f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
-  showGUI: 0
-  offsetX: 0
-  offsetY: 0
 --- !u!114 &838113719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -668,7 +664,7 @@ MonoBehaviour:
   m_GamePlayerPrefab: {fileID: 1000014006262166, guid: bf39c151198d45e4aa36469d77afc499,
     type: 2}
   m_LobbyScene: Lobby
-  m_PlayScene: Aravind
+  m_PlayScene: Main
   lobbySlots: []
 --- !u!4 &838113720
 Transform:
