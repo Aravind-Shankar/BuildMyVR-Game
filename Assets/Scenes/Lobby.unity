@@ -609,7 +609,7 @@ MonoBehaviour:
   m_LogLevel: 2
   m_PlayerPrefab: {fileID: 0}
   m_AutoCreatePlayer: 1
-  m_PlayerSpawnMethod: 0
+  m_PlayerSpawnMethod: 1
   m_OfflineScene: Lobby
   m_OnlineScene: 
   m_SpawnPrefabs: []
@@ -655,7 +655,7 @@ MonoBehaviour:
   matchSize: 4
   isNetworkActive: 0
   matchMaker: {fileID: 0}
-  m_ShowLobbyGUI: 1
+  m_ShowLobbyGUI: 0
   m_MaxPlayers: 4
   m_MaxPlayersPerConnection: 1
   m_MinPlayers: 2
@@ -695,9 +695,9 @@ MonoBehaviour:
   m_BroadcastVersion: 1
   m_BroadcastSubVersion: 1
   m_BroadcastInterval: 1000
-  m_UseNetworkManager: 1
+  m_UseNetworkManager: 0
   m_BroadcastData: HELLO
-  m_ShowGUI: 1
+  m_ShowGUI: 0
   m_OffsetX: 0
   m_OffsetY: 0
 --- !u!114 &838113722

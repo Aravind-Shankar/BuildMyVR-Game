@@ -1278,7 +1278,7 @@ RectTransform:
   m_Children:
   - {fileID: 1562537542}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -1698,7 +1698,7 @@ RectTransform:
   m_Children:
   - {fileID: 2022570486}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -2173,7 +2173,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Name already taken by an active host.
+  m_Text: 
 --- !u!222 &748489751
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2355,7 +2355,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: -9.222, y: -122.99701, z: 1.5760001}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!1 &770849876
 GameObject:
   m_ObjectHideFlags: 0
@@ -2638,7 +2638,7 @@ Transform:
   - {fileID: 785848222}
   - {fileID: 189128642}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!1001 &1012800136
 Prefab:
   m_ObjectHideFlags: 0
@@ -2826,7 +2826,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!114 &1022545217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4576,7 +4576,7 @@ RectTransform:
   - {fileID: 41171053}
   - {fileID: 448986980}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -5136,7 +5136,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 1
 --- !u!114 &1690542168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5696,7 +5696,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010817756184, guid: bf39c151198d45e4aa36469d77afc499, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4000010817756184, guid: bf39c151198d45e4aa36469d77afc499, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -6125,7 +6125,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: -9.222, y: -122.99701, z: 1.5760001}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
 --- !u!81 &2014947716
 AudioListener:
   m_ObjectHideFlags: 0

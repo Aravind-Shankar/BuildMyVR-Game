@@ -23,7 +23,6 @@ public class GameFinder : MonoBehaviour {
 	private bool clearingGrid;
 
 	private CustomNetworkDiscovery discovery;
-	private CustomNetworkLobbyManager manager;
 
 	void Awake() {
 		if (instance != null) {
@@ -36,7 +35,6 @@ public class GameFinder : MonoBehaviour {
 
 	void OnEnable() {
 		discovery = GetComponent<CustomNetworkDiscovery> ();
-		manager = NetworkManager.singleton as CustomNetworkLobbyManager;
 		activeHosts = new Dictionary<string, string> (StringComparer.InvariantCulture);
 
 		discovery.Initialize ();
@@ -51,7 +49,7 @@ public class GameFinder : MonoBehaviour {
 				discovery.Initialize();
 				discovery.StartAsServer();
 
-				manager.StartHost();
+				NetworkManager.singleton.StartHost();
 				// transition
 			}
 		);
@@ -61,15 +59,14 @@ public class GameFinder : MonoBehaviour {
 				joinButton.interactable = false;
 				discovery.StopBroadcast();
 
-				manager.networkAddress = activeHosts[selectedHostName];
-				manager.StartClient();
+				NetworkManager.singleton.networkAddress = activeHosts[selectedHostName];
+				NetworkManager.singleton.StartClient();
 			}
 		);
 	}
 
 	public void ReceivedBroadcast(CustomNetworkDiscovery.HostInfo info) {
 		if (!activeHosts.ContainsKey(info.hostName)) {
-			Debug.Log (info.hostName.Length);
 			activeHosts.Add(info.hostName, info.hostIP);
 			CreateHostButton (info.hostName);
 		}
