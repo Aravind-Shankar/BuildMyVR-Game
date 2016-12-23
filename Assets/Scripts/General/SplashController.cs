@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SplashController : MonoBehaviour {
 
-	public Camera camera;
+	public new Camera camera;
 	public string camPathName;
 	public float camMoveTime;
 

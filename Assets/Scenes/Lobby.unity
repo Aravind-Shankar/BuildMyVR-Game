@@ -695,9 +695,9 @@ MonoBehaviour:
   m_BroadcastVersion: 1
   m_BroadcastSubVersion: 1
   m_BroadcastInterval: 1000
-  m_UseNetworkManager: 0
+  m_UseNetworkManager: 1
   m_BroadcastData: HELLO
-  m_ShowGUI: 0
+  m_ShowGUI: 1
   m_OffsetX: 0
   m_OffsetY: 0
 --- !u!114 &838113722
@@ -947,7 +947,7 @@ GameObject:
   - 114: {fileID: 1265735417}
   - 114: {fileID: 1265735416}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Lobby Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

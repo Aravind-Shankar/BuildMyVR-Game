@@ -3,5 +3,5 @@ using UnityEngine.Networking;
 using System.Collections;
 
 public class CarPlayer : MonoBehaviour {
-	public string name;
+	public new string name;
 }
