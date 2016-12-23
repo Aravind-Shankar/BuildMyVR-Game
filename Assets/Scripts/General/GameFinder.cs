@@ -52,6 +52,7 @@ public class GameFinder : MonoBehaviour {
 
 				NetworkManager.singleton.StartHost();
 				// transition
+				gameObject.SetActive(false);
 			}
 		);
 
@@ -62,6 +63,8 @@ public class GameFinder : MonoBehaviour {
 
 				NetworkManager.singleton.networkAddress = activeHosts[selectedHostName];
 				NetworkManager.singleton.StartClient();
+				// transition
+				gameObject.SetActive(false);
 			}
 		);
 	}
