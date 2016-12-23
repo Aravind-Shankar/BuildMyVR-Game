@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 [RequireComponent(typeof(CustomNetworkDiscovery))]
 public class GameFinder : MonoBehaviour {
@@ -95,6 +96,8 @@ public class GameFinder : MonoBehaviour {
 		GameObject newButton = (GameObject)Instantiate (activeHostButtonPrefab, activeHostsGrid.transform);
 		newButton.GetComponent<RectTransform> ().localScale = Vector3.one;	// apparently CanvasScaler modifies this
 		newButton.GetComponentInChildren<Text> ().text = hostName;
+		newButton.name = hostName;
+
 		Button buttonComponent = newButton.GetComponent<Button> ();
 		buttonComponent.onClick.AddListener (
 			() => {
@@ -107,6 +110,16 @@ public class GameFinder : MonoBehaviour {
 				hostNameText.text = "Host: " + hostName;
 			}
 		);
+
+		SortButtonsByName ();
+	}
+
+	void SortButtonsByName() {
+		string[] keys = activeHosts.Keys.ToArray ();
+		keys = keys.OrderBy (s => s, activeHosts.Comparer as IComparer<string>).ToArray();
+		Debug.Log(string.Join(",", keys));
+		foreach (Button button in activeHostsGrid.transform.GetComponentsInChildren<Button>())
+			button.transform.SetSiblingIndex(Array.BinarySearch(keys, button.gameObject.name));
 	}
 
 	void OnDisable() {

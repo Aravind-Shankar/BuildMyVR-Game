@@ -27,6 +27,7 @@ public class CustomNetworkDiscovery : NetworkDiscovery {
 		// fromAddress format is "::ffff:IP"
 		info.hostIP = parseIP(fromAddress);
 		// data is just the name, but apparently control characters get appended
+		data = data.Trim();
 		int controlCharStart = 0;
 		while (controlCharStart < data.Length && !char.IsControl (data [controlCharStart]))
 			++controlCharStart;
