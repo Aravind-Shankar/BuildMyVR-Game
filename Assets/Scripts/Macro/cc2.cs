@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class cc2 : MonoBehaviour {
-
+	/*
 	public WheelCollider wheelFL;
 	public WheelCollider wheelFR;
 	public WheelCollider wheelRL;
@@ -33,11 +33,6 @@ public class cc2 : MonoBehaviour {
 		LoadMacroState ();
 	}
 
-	/*
-	void OnGUI(){
-		GUI.Label (new Rect (10.0f, 10.0f, 50.0f, 50.0f), "Acc Defective: " + isAccDefect);
-	}
-	*/
 	void OnEnable() {
 		MagnetSensor.OnCardboardTrigger += CarBrakesOn;
 	}
@@ -105,22 +100,6 @@ public class cc2 : MonoBehaviour {
 	}
 
 	void CarBrakesOn(){
-		/*if (triggerTime == 0.0f) {
-				wheelFL.brakeTorque = maxFBrake; 
-				wheelFR.brakeTorque = maxFBrake;
-				wheelRR.brakeTorque = maxRBrake;
-				wheelRL.brakeTorque = maxRBrake;
-				triggerTimer = true;
-
-			}
-			else if (triggerTime >= triggerCutoffTime) {
-				wheelFL.brakeTorque = 0.0f;
-				wheelFR.brakeTorque = 0.0f;
-				wheelRL.brakeTorque = 0.0f; 
-				wheelRR.brakeTorque = 0.0f;
-				triggerTime = 0.0f;
-				triggerTimer = false;
-			}*/
 		magState = 1;
 		revOrFor = false;
 
@@ -155,4 +134,5 @@ public class cc2 : MonoBehaviour {
 			wheelRR.motorTorque = accFactor * maxTorque * 0.5f;
 		}
 	}
+	*/
 }

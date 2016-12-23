@@ -7,7 +7,7 @@ public class Movement: MonoBehaviour {
 	public GameObject Head;
 	public float speed=1.0f;
 	public float timeFactor;
-	private float t=0.0f;
+	//private float t=0.0f;
 	private Rigidbody rb;
 	private bool flag;
 	private Vector3 InitialVelocity=Vector3.zero;
@@ -16,7 +16,7 @@ public class Movement: MonoBehaviour {
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
 		rb.freezeRotation = true;
-		flag = false;
+		flag = false; 
 		timeFactor = 5.0f;
 	}
 

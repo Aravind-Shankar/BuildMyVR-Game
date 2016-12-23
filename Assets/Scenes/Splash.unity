@@ -787,18 +787,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 232884629}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1690542166}
-        m_MethodName: ChangeToLobby
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &232884629
@@ -3893,7 +3882,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1690542166}
+      - m_Target: {fileID: 0}
         m_MethodName: ChangeToLobby
         m_Mode: 1
         m_Arguments:
@@ -5127,7 +5116,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1690542167}
-  - 114: {fileID: 1690542166}
   - 114: {fileID: 1690542168}
   m_Layer: 0
   m_Name: Globals
@@ -5136,23 +5124,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1690542166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1690542165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cad3470a11aec441be64a758f2fc756, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  splashFields:
-    splashShown: 0
-    cameraEndPoint: {x: 56.10155, y: -6.5, z: 246.6614}
-    splashCanvas: {fileID: 1474079808}
-    splashAnimator: {fileID: 1474079805}
-    splashController: {fileID: 1474079810}
 --- !u!4 &1690542167
 Transform:
   m_ObjectHideFlags: 0
@@ -5188,7 +5159,7 @@ MonoBehaviour:
   m_LogLevel: 2
   m_PlayerPrefab: {fileID: 0}
   m_AutoCreatePlayer: 1
-  m_PlayerSpawnMethod: 0
+  m_PlayerSpawnMethod: 1
   m_OfflineScene: Splash
   m_OnlineScene: 
   m_SpawnPrefabs: []
@@ -6483,7 +6454,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1690542166}
+      - m_Target: {fileID: 0}
         m_MethodName: ChangeToLobby
         m_Mode: 1
         m_Arguments:

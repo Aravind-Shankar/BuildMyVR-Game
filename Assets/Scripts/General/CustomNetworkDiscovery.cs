@@ -23,10 +23,6 @@ public class CustomNetworkDiscovery : NetworkDiscovery {
 	}
 
 	public override void OnReceivedBroadcast(string fromAddress, string data) {
-		/* string debugText = string.Format ("Broadcast received, address {0}, data: {1}",
-			                   fromAddress, data); 
-		Debug.Log (debugText); */
-
 		HostInfo info = new HostInfo ();
 		// fromAddress format is "::ffff:IP"
 		info.hostIP = parseIP(fromAddress);
