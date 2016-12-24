@@ -25,6 +25,15 @@ public class CustomLobbyPlayer : NetworkLobbyPlayer {
 		StartCoroutine (SetUpUI (true));
 	}
 
+	public override void OnClientExitLobby ()
+	{
+		if (isLocalPlayer) {
+			localPlayer = null;
+		}
+		nameText.text = "";
+		readyText.text = "";
+	}
+
 	public override void OnClientReady (bool readyState)
 	{
 		readyToBegin = readyState;

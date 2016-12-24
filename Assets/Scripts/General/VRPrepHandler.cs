@@ -5,6 +5,9 @@ using System.Collections;
 
 public class VRPrepHandler : MonoBehaviour {
 
+	public GameObject backButtonCanvas;
+	public LobbyHandler lobbyHandler;
+
 	private GameObject magnetNotice, successText;
 
 	void Awake() {
@@ -13,6 +16,11 @@ public class VRPrepHandler : MonoBehaviour {
 	}
 
 	void OnEnable() {
+		backButtonCanvas.SetActive (true);
+		Button backButton = backButtonCanvas.GetComponentInChildren<Button> ();
+		backButton.onClick.RemoveAllListeners ();
+		backButton.onClick.AddListener (GoBack);
+
 		MagnetSensor.OnCardboardTrigger += MarkReady;
 		magnetNotice.SetActive (true);
 		successText.SetActive (false);
@@ -35,10 +43,15 @@ public class VRPrepHandler : MonoBehaviour {
 	}
 
 	public void GoBack() {
-		magnetNotice.SetActive (true);
-		successText.SetActive (false);
+		if (isActiveAndEnabled) {
+			if (CustomLobbyPlayer.localPlayer.readyToBegin) {
+				magnetNotice.SetActive (true);
+				successText.SetActive (false);
 
-		CustomLobbyPlayer.localPlayer.SendNotReadyToBeginMessage ();
+				CustomLobbyPlayer.localPlayer.SendNotReadyToBeginMessage ();
+			}
+			lobbyHandler.TransitionFromVR ();
+		}
 	}
 
 	void OnDisable() {

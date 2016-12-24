@@ -16,16 +16,18 @@ public class GameFinder : MonoBehaviour {
 	public InputField nameField;
 	public Text hostNameText;
 
-	public Canvas lobbyCanvas;
+	public GameObject mainMenuCanvas;
+	public GameObject lobbyCanvas;
+	public GameObject backButtonCanvas;
 
+	[HideInInspector]
+	public CustomNetworkDiscovery discovery;
 	[HideInInspector]
 	public Dictionary<string, string> activeHosts;
 	[HideInInspector]
 	public string selectedHostName = "";
 	private Button selectedButton;
 	private bool clearingGrid;
-
-	private CustomNetworkDiscovery discovery;
 
 	void Awake() {
 		if (instance != null) {
@@ -37,12 +39,19 @@ public class GameFinder : MonoBehaviour {
 	}
 
 	void OnEnable() {
+		backButtonCanvas.SetActive (true);
+		Button backButton = backButtonCanvas.GetComponentInChildren<Button> ();
+		backButton.onClick.RemoveAllListeners ();
+		backButton.onClick.AddListener (GoBack);
+
 		discovery = GetComponent<CustomNetworkDiscovery> ();
 		activeHosts = new Dictionary<string, string> (StringComparer.InvariantCulture);
 
+		discovery.StopBroadcast ();
 		discovery.Initialize ();
 		discovery.StartAsClient ();
 
+		hostButton.onClick.RemoveAllListeners ();
 		hostButton.onClick.AddListener (
 			() => {
 				hostButton.interactable = false;
@@ -55,10 +64,11 @@ public class GameFinder : MonoBehaviour {
 
 				NetworkManager.singleton.StartHost();
 				// transition
-				lobbyCanvas.gameObject.SetActive(true);
+				lobbyCanvas.SetActive(true);
 			}
 		);
 
+		joinButton.onClick.RemoveAllListeners ();
 		joinButton.onClick.AddListener (
 			() => {
 				joinButton.interactable = false;
@@ -68,9 +78,18 @@ public class GameFinder : MonoBehaviour {
 				NetworkManager.singleton.networkAddress = activeHosts[selectedHostName];
 				NetworkManager.singleton.StartClient();
 				// transition
-				lobbyCanvas.gameObject.SetActive(true);
+				lobbyCanvas.SetActive(true);
 			}
 		);
+	}
+
+	public void GoBack() {
+		if (isActiveAndEnabled) {
+			discovery.StopBroadcast ();
+			gameObject.SetActive (false);
+			mainMenuCanvas.SetActive (true);
+			mainMenuCanvas.GetComponent<Animator> ().SetTrigger ("startPlaying");
+		}
 	}
 
 	public void ReceivedBroadcast(CustomNetworkDiscovery.HostInfo info) {
@@ -138,5 +157,6 @@ public class GameFinder : MonoBehaviour {
 
 	void OnDisable() {
 		discovery.StopBroadcast ();
+		ClearGrid ();
 	}
 }

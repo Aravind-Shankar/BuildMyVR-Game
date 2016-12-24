@@ -14,6 +14,11 @@ public class SplashController : MonoBehaviour {
 	public float intervalTime;
 
 	public Animator mainMenuAnimator;
+	public GameObject backButtonCanvas;
+
+	void OnEnable() {
+		backButtonCanvas.SetActive (false);
+	}
 
 	public void StartMovement() {
 		this.eventCamera.clearFlags = CameraClearFlags.Skybox;

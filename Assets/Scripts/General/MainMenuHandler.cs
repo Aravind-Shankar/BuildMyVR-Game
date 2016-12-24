@@ -3,11 +3,16 @@ using System.Collections;
 
 public class MainMenuHandler : MonoBehaviour {
 
-	public GameObject gameFinderCanvas;
+	public GameObject gamefinderCanvas;
+	public GameObject backButtonCanvas;
+
+	void OnEnable() {
+		backButtonCanvas.SetActive (false);
+	}
 
 	public void HitPlay() {
 		gameObject.SetActive (false);
-		gameFinderCanvas.SetActive (true);
+		gamefinderCanvas.SetActive (true);
 	}
 
 	public void HitQuit() {
