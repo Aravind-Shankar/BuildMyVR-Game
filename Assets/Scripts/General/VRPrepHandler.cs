@@ -26,13 +26,19 @@ public class VRPrepHandler : MonoBehaviour {
 	#endif
 
 	public void MarkReady() {
-		magnetNotice.SetActive (false);
-		successText.SetActive (true);
+		if (!CustomLobbyPlayer.localPlayer.readyToBegin) {
+			magnetNotice.SetActive (false);
+			successText.SetActive (true);
+
+			CustomLobbyPlayer.localPlayer.SendReadyToBeginMessage ();
+		}
 	}
 
 	public void GoBack() {
 		magnetNotice.SetActive (true);
 		successText.SetActive (false);
+
+		CustomLobbyPlayer.localPlayer.SendNotReadyToBeginMessage ();
 	}
 
 	void OnDisable() {

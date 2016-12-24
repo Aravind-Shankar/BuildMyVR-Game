@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LobbyToVRPrep : MonoBehaviour {
+public class LobbyHandler : MonoBehaviour {
 
 	public GameObject propCar;
 

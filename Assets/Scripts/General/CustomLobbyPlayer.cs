@@ -5,6 +5,8 @@ using System.Collections;
 
 public class CustomLobbyPlayer : NetworkLobbyPlayer {
 
+	public static CustomLobbyPlayer localPlayer;
+
 	[HideInInspector]
 	public string playerName = "";
 
@@ -23,26 +25,37 @@ public class CustomLobbyPlayer : NetworkLobbyPlayer {
 		StartCoroutine (SetUpUI (true));
 	}
 
+	public override void OnClientReady (bool readyState)
+	{
+		readyToBegin = readyState;
+		AssignReadyText ();
+	}
+
+	void AssignReadyText() {
+		readyText.text = (isLocalPlayer) ? "YOU" : (
+			(readyToBegin) ? "READY" : "Not Ready"
+		);
+	}
+
 	public IEnumerator SetUpUI(bool canBeLocalPlayer) {
 		if (canBeLocalPlayer) {
 			yield return new WaitForEndOfFrame ();
 			if (isLocalPlayer) {
-				readyText.text = "YOU";
 				readyText.fontStyle = FontStyle.BoldAndItalic;
 
 				playerName = GameFinder.instance.nameField.text;
-			} else {
+				localPlayer = this;
+			}
+			else {
 				yield return new WaitForEndOfFrame ();
 				foreach (CustomLobbyPlayer player in lobby.lobbySlots) {
 					if (player != null)
 						player.SendYourName ();
 				}
-				readyText.text = (readyToBegin) ? "READY" : "Not Ready";
 			}
 		}
-		else
-			readyText.text = (readyToBegin) ? "READY" : "Not Ready";
-		
+
+		AssignReadyText ();
 		nameText.text = (slot + 1) + ". " + playerName;
 		yield return null;
 	}
