@@ -30,8 +30,10 @@ public class CustomLobbyPlayer : NetworkLobbyPlayer {
 		if (isLocalPlayer) {
 			localPlayer = null;
 		}
-		nameText.text = "";
-		readyText.text = "";
+		if (nameText != null)
+			nameText.text = "";
+		if (readyText != null)
+			readyText.text = "";
 	}
 
 	public override void OnClientReady (bool readyState)
