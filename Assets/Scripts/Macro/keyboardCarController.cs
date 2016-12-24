@@ -30,6 +30,8 @@ using System.Collections;
 	private float prevDFC = 0.0f;
 	private Vector3 tr;
 
+
+
 				// Use this for initialization
 				void Start () {
 		tr = GetComponent<Transform> ().position;
