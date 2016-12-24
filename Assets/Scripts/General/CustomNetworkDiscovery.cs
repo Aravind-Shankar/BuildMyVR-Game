@@ -27,18 +27,18 @@ public class CustomNetworkDiscovery : NetworkDiscovery {
 		// fromAddress format is "::ffff:IP"
 		info.hostIP = parseIP(fromAddress);
 		// data is just the name, but apparently control characters get appended
-		data = data.Trim();
 		int controlCharStart = 0;
 		while (controlCharStart < data.Length && !char.IsControl (data [controlCharStart]))
 			++controlCharStart;
-		info.hostName = data.Remove(controlCharStart);
+		info.hostName = data.Remove(controlCharStart).Trim();
 		SendMessage ("ReceivedBroadcast", info, SendMessageOptions.DontRequireReceiver);
-		GameFinder.instance.hostNameText.text = info.hostName;
 	}
 
 	public new void StopBroadcast() {
-		base.StopBroadcast ();
-		CancelInvoke ();
+		if (running) {
+			base.StopBroadcast ();
+			CancelInvoke ();
+		}
 	}
 
 	public struct HostInfo {

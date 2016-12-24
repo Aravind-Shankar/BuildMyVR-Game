@@ -34,7 +34,6 @@ public class CustomLobbyPlayer : NetworkLobbyPlayer {
 			} else {
 				yield return new WaitForEndOfFrame ();
 				foreach (CustomLobbyPlayer player in lobby.lobbySlots) {
-					print ("player name: " + ((player == null) ? "null" : player.playerName));
 					if (player != null)
 						player.SendYourName ();
 				}
@@ -50,21 +49,18 @@ public class CustomLobbyPlayer : NetworkLobbyPlayer {
 
 	public void SendYourName() {
 		if (isLocalPlayer) {
-			print ("LP sending " + playerName);
 			CmdSendName (playerName);
 		}
 	}
 
 	[Command]
 	void CmdSendName(string outName) {
-		print ("in cmd send name " + slot + "; sending " + outName + ", " + slot);
 		RpcReceiveName (outName);
 	}
 
 	[ClientRpc]
 	void RpcReceiveName(string recdName) {
 		if (!isLocalPlayer && playerName == "") {
-			print ("in rpc rec name " + slot + ", recd name = " + recdName);
 			playerName = recdName;
 			StartCoroutine (SetUpUI (false));
 		}
