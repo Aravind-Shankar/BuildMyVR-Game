@@ -5,7 +5,15 @@ using System.Collections;
 
 public class CustomNetworkDiscovery : NetworkDiscovery {
 
-	public static string parseIP(string sentAddress) {
+	public const char END_MARK = (char)1;
+
+	public static string ParseData(string sentData) {
+		// data is name + END_MARK + garbage
+		return sentData.Remove (sentData.IndexOf (END_MARK)).Trim ();
+	}
+
+	public static string ParseIP(string sentAddress) {
+		// fromAddress format is "::ffff:IP"
 		return sentAddress.Substring (sentAddress.LastIndexOf (':') + 1);
 	}
 
@@ -24,13 +32,8 @@ public class CustomNetworkDiscovery : NetworkDiscovery {
 
 	public override void OnReceivedBroadcast(string fromAddress, string data) {
 		HostInfo info = new HostInfo ();
-		// fromAddress format is "::ffff:IP"
-		info.hostIP = parseIP(fromAddress);
-		// data is just the name, but apparently control characters get appended
-		int controlCharStart = 0;
-		while (controlCharStart < data.Length && !char.IsControl (data [controlCharStart]))
-			++controlCharStart;
-		info.hostName = data.Remove(controlCharStart).Trim();
+		info.hostIP = ParseIP(fromAddress);
+		info.hostName = ParseData(data);
 		SendMessage ("ReceivedBroadcast", info, SendMessageOptions.DontRequireReceiver);
 	}
 

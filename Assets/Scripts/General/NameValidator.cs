@@ -26,7 +26,7 @@ public class NameValidator : MonoBehaviour {
 		}
 		else {
 			errorText.text = "";
-			field.text = enteredName.ToUpper ();
+			field.text = enteredName.ToUpper ().Trim();
 			if (GameFinder.instance.activeHosts.ContainsKey (field.text))
 				errorText.text = "Name already taken by an active host.";
 		}

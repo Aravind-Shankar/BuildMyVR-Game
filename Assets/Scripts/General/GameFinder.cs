@@ -49,16 +49,12 @@ public class GameFinder : MonoBehaviour {
 				gameObject.SetActive(false);
 				discovery.StopBroadcast();
 
-				discovery.broadcastData = nameField.text;
+				discovery.broadcastData = nameField.text + CustomNetworkDiscovery.END_MARK;
 				discovery.Initialize();
 				discovery.StartAsServer();
-				print("sending " + discovery.broadcastData);
 
 				NetworkManager.singleton.StartHost();
 				// transition
-				/*CanvasGroup thisGroup = GetComponentInChildren<CanvasGroup>();
-				thisGroup.interactable = false;
-				thisGroup.alpha = 0f;*/
 				lobbyCanvas.gameObject.SetActive(true);
 			}
 		);
@@ -72,9 +68,6 @@ public class GameFinder : MonoBehaviour {
 				NetworkManager.singleton.networkAddress = activeHosts[selectedHostName];
 				NetworkManager.singleton.StartClient();
 				// transition
-				/*CanvasGroup thisGroup = GetComponentInChildren<CanvasGroup>();
-				thisGroup.interactable = false;
-				thisGroup.alpha = 0f;*/
 				lobbyCanvas.gameObject.SetActive(true);
 			}
 		);
@@ -82,7 +75,6 @@ public class GameFinder : MonoBehaviour {
 
 	public void ReceivedBroadcast(CustomNetworkDiscovery.HostInfo info) {
 		if (!activeHosts.ContainsKey(info.hostName)) {
-			print ("adding " + info.hostName);
 			activeHosts.Add(info.hostName, info.hostIP);
 			CreateHostButton (info.hostName);
 		}
