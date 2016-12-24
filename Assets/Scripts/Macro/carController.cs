@@ -67,7 +67,7 @@ public class carController : NetworkBehaviour
 
 		/*if (sceneManager.instance.inSceneTransition)
 			SaveMacroState ();*/
-	//}
+	}
 
 	// apparently key-press events are handled properly only in Update/LateUpdate
 	void Update() {

@@ -36,7 +36,7 @@ public class defectManager : MonoBehaviour {
 			s.isDefect = true;
 		}
 		else if (accelerationDefectTime <= 0.0f) {
-			c.isAccDefect = true;
+			//c.isAccDefect = true;
 		}
 	}
 

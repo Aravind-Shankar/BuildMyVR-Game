@@ -30,12 +30,12 @@ public class posManager : MonoBehaviour {
 		GUI.Label (new Rect (10.0f, 30.0f, 50.0f, 50.0f), "Third: " + players[players.Keys.ToList()[2]].name);
 	}*/
 	void FixedUpdate () {
-		players = players.OrderByDescending (x => (x.Value.totDistTra + x.Value.distFromCp)).ToDictionary(x => x.Key, x=>x.Value);
+		/*players = players.OrderByDescending (x => (x.Value.totDistTra + x.Value.distFromCp)).ToDictionary(x => x.Key, x=>x.Value);
 
 
 		t [0].text = "1st " + players [players.Keys.ToList () [0]].name; 
 		t [1].text = "2nd " + players [players.Keys.ToList () [1]].name;
-		t [2].text = "3rd " + players [players.Keys.ToList () [2]].name;
+		t [2].text = "3rd " + players [players.Keys.ToList () [2]].name;*/
 	
 	}
 }
