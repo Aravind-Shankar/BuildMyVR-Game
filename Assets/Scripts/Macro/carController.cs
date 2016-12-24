@@ -67,7 +67,7 @@ public class carController : NetworkBehaviour
 
 		/*if (sceneManager.instance.inSceneTransition)
 			SaveMacroState ();*/
-	}
+	//}
 
 	// apparently key-press events are handled properly only in Update/LateUpdate
 	void Update() {
@@ -96,7 +96,6 @@ public class carController : NetworkBehaviour
 		globalState.carPosition = transform.position;
 		globalState.carRotation = transform.rotation;
 	}*/
-
 	void ToggleBrakes() {
 		braking = !braking;
 	}
@@ -118,7 +117,28 @@ public class carController : NetworkBehaviour
 		if (accFactor <= 1) {
 			accFactor += acceleration * (Time.deltaTime);
 		}
-
+	}
+	/*
+	void CarBrakesOn(){
+		/*if (triggerTime == 0.0f) {
+			wheelFL.brakeTorque = maxFBrake; 
+			wheelFR.brakeTorque = maxFBrake;
+			wheelRR.brakeTorque = maxRBrake;
+			wheelRL.brakeTorque = maxRBrake;
+			triggerTimer = true;
+		}
+		else if (triggerTime >= triggerCutoffTime) {
+			wheelFL.brakeTorque = 0.0f;
+			wheelFR.brakeTorque = 0.0f;
+			wheelRL.brakeTorque = 0.0f; 
+			wheelRR.brakeTorque = 0.0f;
+			triggerTime = 0.0f;
+			triggerTimer = false;
+		}
+		magState = 1;
+		if (rb.velocity.z <= 0.0f && rb.velocity.z >= -0.3f) {
+			revOrFor = false;
+		} 
 		if (revOrFor) {
 			wheelRL.motorTorque = accFactor * maxTorque;
 			wheelRR.motorTorque = accFactor * maxTorque;
@@ -128,7 +148,7 @@ public class carController : NetworkBehaviour
 			wheelRR.motorTorque = -accFactor * maxTorque;
 		}
 	}
-
+	*/
 	private void SetSteerAngle() {
 		// clamp the steering angle using accelerometer input
 		//float inputFactor = Mathf.Clamp(Input.acceleration.x, -1f, 1f);

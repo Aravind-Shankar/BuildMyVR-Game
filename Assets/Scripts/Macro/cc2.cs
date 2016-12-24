@@ -15,6 +15,17 @@ public class cc2 : MonoBehaviour {
 
 	private int magState = 0;
 
+	private checkpointScript cps;
+	private checkpointScript cpsPrev;
+	public int numberOfCP = 0;
+	public int cpCount = 0;
+	public float totDistTra = 0.0f;
+	public float distFromCp = 0.0f;
+	public GameObject c;
+	private bool presOrPrev = true;
+	public float distErr = 0.0f;
+	private float prevDFC = 0.0f;
+
 	public float maxTorque = 1000.0f;
 	private float acceleration = 70.0f;
 	private float accFactor = 0.0f;
@@ -27,8 +38,13 @@ public class cc2 : MonoBehaviour {
 	private bool revOrFor = true;
 	// Use this for initialization
 	void Start () {
+
 		rb = GetComponent<Rigidbody> ();
 		rb.centerOfMass = new Vector3 (0.0f, -0.9f, 0.0f);
+
+		numberOfCP = c.transform.childCount;
+		distErr = gameObject.GetComponent<BoxCollider> ().size.z;
+		distErr = (gameObject.transform.localScale.z) * distErr;
 
 		LoadMacroState ();
 	}
@@ -48,7 +64,6 @@ public class cc2 : MonoBehaviour {
 
 	void FixedUpdate () {
 		//used to inc the torque linearly
-
 		if (accFactor <= 1) {
 			accFactor += acceleration * (Time.deltaTime);
 		}
@@ -78,8 +93,12 @@ public class cc2 : MonoBehaviour {
 			triggerTime = 0.0f;		
 		}
 
-		if (sceneManager.instance.inSceneTransition)
+		if (sceneManager.instance.inSceneTransition) {
 			SaveMacroState ();
+		}
+
+		FindCpDist();
+
 	}
 
 	void LoadMacroState() {
@@ -124,6 +143,20 @@ public class cc2 : MonoBehaviour {
 		}
 	}
 
+	private void FindCpDist(){
+		if (presOrPrev == true) {
+			distFromCp = Vector3.Dot (Vector3.Normalize(cps.nextCpTrans.position - cps.presCpTrans.position), gameObject.transform.position - cps.presCpTrans.position);
+			distFromCp = Mathf.Abs (distFromCp);
+			distFromCp = distFromCp - distErr;
+		}
+
+		else {
+			distFromCp = Vector3.Dot (Vector3.Normalize(cpsPrev.nextCpTrans.position - cpsPrev.presCpTrans.position), gameObject.transform.position - cpsPrev.presCpTrans.position);
+			distFromCp = Mathf.Abs (distFromCp);
+			distFromCp = distFromCp - distErr;
+		}
+	}
+
 	private void Torque (){
 		if (revOrFor) {
 			wheelRL.motorTorque = -accFactor * maxTorque;
@@ -134,5 +167,39 @@ public class cc2 : MonoBehaviour {
 			wheelRR.motorTorque = accFactor * maxTorque * 0.5f;
 		}
 	}
-	*/
+	*//*
+}
+	void OnTriggerExit(Collider other) {
+		if(other.CompareTag ("Checkpoint")){
+			cps = other.GetComponent<checkpointScript> ();
+			int i = cps.index;
+
+			if (i == cpCount) {
+				cpCount += 1;
+				totDistTra = totDistTra + distFromCp; 
+				prevDFC = distFromCp;
+				distFromCp = 0.0f;
+				presOrPrev = true;
+			}
+
+			else if (i == cpCount-1){
+				cpCount -= 1;
+				totDistTra = totDistTra - prevDFC;
+
+				presOrPrev = false;
+				cpsPrev = cps.prevCpObj.GetComponent<checkpointScript> ();
+				FindCpDist ();
+				prevDFC = distFromCp;
+			}
+
+			if (i == 0) {
+				totDistTra = 0.0f;
+			}
+
+			if (i >= numberOfCP - 1) {
+				print ("You have finished");
+			}
+
+		}
+	}*/
 }

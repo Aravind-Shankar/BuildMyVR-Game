@@ -10,4 +10,5 @@ public class CarPlayer : MonoBehaviour {
 	public int index;
 	[HideInInspector]
 	public int rank;
+
 }
