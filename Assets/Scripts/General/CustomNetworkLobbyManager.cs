@@ -13,6 +13,7 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
 		CustomLobbyPlayer lobbyPlayerComponent = lobbyPlayer.GetComponent<CustomLobbyPlayer> ();
 		CarPlayer carPlayerComponent = gamePlayer.GetComponent<CarPlayer> ();
 		carPlayerComponent.playerName = lobbyPlayerComponent.playerName;
+		carPlayerComponent.index = lobbyPlayerComponent.slot + 1;
 		return true;
 	}
 }

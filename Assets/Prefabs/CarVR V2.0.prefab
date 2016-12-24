@@ -994,7 +994,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eed3f6037cf4c94785752b58104b0e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
+  playerName: 
 --- !u!114 &114000011177742302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1217,7 +1217,7 @@ MonoBehaviour:
   maxFBrake: 200
   maxRBrake: 100
   reverseThresholdSpeed: 0.05
-  maxTorque: 60
+  maxTorque: 100
   isAccDefect: 0
 --- !u!114 &114000013533419238
 MonoBehaviour:

@@ -21,6 +21,7 @@ public class carController : NetworkBehaviour
 	public float maxTorque = 1000.0f;
 	private float acceleration = 100.0f;
 	private float accFactor = 0.0f;
+	private float steerInput;
 	public bool isAccDefect;
 
 	private bool revOrFor = true;
@@ -69,12 +70,15 @@ public class carController : NetworkBehaviour
 	}
 
 	// apparently key-press events are handled properly only in Update/LateUpdate
-	#if UNITY_EDITOR
 	void Update() {
+		#if UNITY_EDITOR
 		if (Input.GetKeyDown (KeyCode.Space))
 			ToggleBrakes ();
+		steerInput = Mathf.Clamp(Input.GetAxis("Vertical"), -1f, 1f);
+		#elif UNITY_ANDROID
+		steerInput = Mathf.Clamp(Input.acceleration.x, -1f, 1f);
+		#endif
 	}
-	#endif
 
 	/*void LoadMacroState() {
 		MacroState pastState = sceneManager.instance.GlobalMacroState;
@@ -127,9 +131,9 @@ public class carController : NetworkBehaviour
 
 	private void SetSteerAngle() {
 		// clamp the steering angle using accelerometer input
-		float inputFactor = Mathf.Clamp(Input.acceleration.x, -1f, 1f);
-		wheelFL.steerAngle = maxSteer * inputFactor;
-		wheelFR.steerAngle = maxSteer * inputFactor;
+		//float inputFactor = Mathf.Clamp(Input.acceleration.x, -1f, 1f);
+		wheelFL.steerAngle = maxSteer * steerInput;
+		wheelFR.steerAngle = maxSteer * steerInput;
 	}
 
 	private void SetBrakeTorque() {
