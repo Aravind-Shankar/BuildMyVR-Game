@@ -33,6 +33,8 @@ public class NameValidator : MonoBehaviour {
 
 		hostButton.interactable = (errorText.text == "");
 		joinButton.interactable = (enteredName != "") && (GameFinder.instance.selectedHostName != "");
+
+
 	}
 
 }

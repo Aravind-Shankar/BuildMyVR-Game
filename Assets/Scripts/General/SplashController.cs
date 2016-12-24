@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SplashController : MonoBehaviour {
 
-	public new Camera camera;
+	public Camera eventCamera;
 	public string camPathName;
 	public float camMoveTime;
 
@@ -16,8 +16,8 @@ public class SplashController : MonoBehaviour {
 	public Animator mainMenuAnimator;
 
 	public void StartMovement() {
-		this.camera.clearFlags = CameraClearFlags.Skybox;
-		iTween.MoveTo (this.camera.gameObject, iTween.Hash (
+		this.eventCamera.clearFlags = CameraClearFlags.Skybox;
+		iTween.MoveTo (this.eventCamera.gameObject, iTween.Hash (
 			"path", iTweenPath.GetPath(this.camPathName),
 			"time", camMoveTime,
 			"easeType", iTween.EaseType.easeInOutSine

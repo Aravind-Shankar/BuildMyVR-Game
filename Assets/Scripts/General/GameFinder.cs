@@ -16,6 +16,8 @@ public class GameFinder : MonoBehaviour {
 	public InputField nameField;
 	public Text hostNameText;
 
+	public Canvas lobbyCanvas;
+
 	[HideInInspector]
 	public Dictionary<string, string> activeHosts;
 	[HideInInspector]
@@ -44,7 +46,8 @@ public class GameFinder : MonoBehaviour {
 		hostButton.onClick.AddListener (
 			() => {
 				hostButton.interactable = false;
-				discovery.StopBroadcast();
+				gameObject.SetActive(false);
+				//discovery.StopBroadcast();
 
 				discovery.broadcastData = nameField.text;
 				discovery.Initialize();
@@ -52,19 +55,20 @@ public class GameFinder : MonoBehaviour {
 
 				NetworkManager.singleton.StartHost();
 				// transition
-				gameObject.SetActive(false);
+				lobbyCanvas.gameObject.SetActive(true);
 			}
 		);
 
 		joinButton.onClick.AddListener (
 			() => {
 				joinButton.interactable = false;
-				discovery.StopBroadcast();
+				gameObject.SetActive(false);
+				//discovery.StopBroadcast();
 
 				NetworkManager.singleton.networkAddress = activeHosts[selectedHostName];
 				NetworkManager.singleton.StartClient();
 				// transition
-				gameObject.SetActive(false);
+				lobbyCanvas.gameObject.SetActive(true);
 			}
 		);
 	}
@@ -120,7 +124,6 @@ public class GameFinder : MonoBehaviour {
 	void SortButtonsByName() {
 		string[] keys = activeHosts.Keys.ToArray ();
 		keys = keys.OrderBy (s => s, activeHosts.Comparer as IComparer<string>).ToArray();
-		Debug.Log(string.Join(",", keys));
 		foreach (Button button in activeHostsGrid.transform.GetComponentsInChildren<Button>())
 			button.transform.SetSiblingIndex(Array.BinarySearch(keys, button.gameObject.name));
 	}

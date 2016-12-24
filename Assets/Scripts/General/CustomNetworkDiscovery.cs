@@ -33,6 +33,7 @@ public class CustomNetworkDiscovery : NetworkDiscovery {
 			++controlCharStart;
 		info.hostName = data.Remove(controlCharStart);
 		SendMessage ("ReceivedBroadcast", info, SendMessageOptions.DontRequireReceiver);
+		GameFinder.instance.hostNameText.text = info.hostName;
 	}
 
 	public new void StopBroadcast() {
