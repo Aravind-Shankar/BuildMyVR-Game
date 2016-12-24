@@ -23,6 +23,8 @@ public class cc2 : MonoBehaviour {
 	public float distFromCp = 0.0f;
 	public GameObject c;
 	private bool presOrPrev = true;
+	public float distErr = 0.0f;
+	private float prevDFC = 0.0f;
 
 	public float maxTorque = 1000.0f;
 	private float acceleration = 70.0f;
@@ -36,10 +38,13 @@ public class cc2 : MonoBehaviour {
 	private bool revOrFor = true;
 	// Use this for initialization
 	void Start () {
+
 		rb = GetComponent<Rigidbody> ();
 		rb.centerOfMass = new Vector3 (0.0f, -0.9f, 0.0f);
 
 		numberOfCP = c.transform.childCount;
+		distErr = gameObject.GetComponent<BoxCollider> ().size.z;
+		distErr = (gameObject.transform.localScale.z) * distErr;
 
 		LoadMacroState ();
 	}
@@ -64,7 +69,6 @@ public class cc2 : MonoBehaviour {
 
 	void FixedUpdate () {
 		//used to inc the torque linearly
-		FindCpDist();
 		if (accFactor <= 1) {
 			accFactor += acceleration * (Time.deltaTime);
 		}
@@ -98,6 +102,7 @@ public class cc2 : MonoBehaviour {
 			SaveMacroState ();
 		}
 
+		FindCpDist();
 
 	}
 
@@ -161,13 +166,15 @@ public class cc2 : MonoBehaviour {
 
 	private void FindCpDist(){
 		if (presOrPrev == true) {
-			distFromCp = Vector3.Dot (cps.nextCpTrans.position - cps.transform.position, gameObject.transform.position - cps.transform.position);
+			distFromCp = Vector3.Dot (Vector3.Normalize(cps.nextCpTrans.position - cps.presCpTrans.position), gameObject.transform.position - cps.presCpTrans.position);
 			distFromCp = Mathf.Abs (distFromCp);
+			distFromCp = distFromCp - distErr;
 		}
 
 		else {
-			distFromCp = Vector3.Dot (cpsPrev.nextCpTrans.position - cpsPrev.transform.position, gameObject.transform.position - cpsPrev.transform.position);
+			distFromCp = Vector3.Dot (Vector3.Normalize(cpsPrev.nextCpTrans.position - cpsPrev.presCpTrans.position), gameObject.transform.position - cpsPrev.presCpTrans.position);
 			distFromCp = Mathf.Abs (distFromCp);
+			distFromCp = distFromCp - distErr;
 		}
 	}
 
@@ -182,23 +189,38 @@ public class cc2 : MonoBehaviour {
 		}
 	}
 
+
 	void OnTriggerExit(Collider other) {
-		cps = other.GetComponent<checkpointScript> ();
-		int i = cps.index;
+		if(other.CompareTag ("Checkpoint")){
+			cps = other.GetComponent<checkpointScript> ();
+			int i = cps.index;
 
-		if (other.CompareTag ("Checkpoint") && i == cpCount) {
-			cpCount += 1;
-			totDistTra += cps.distToPrevCp; 
-			distFromCp = 0.0f;
-			presOrPrev = true;
-		}
+			if (i == cpCount) {
+				cpCount += 1;
+				totDistTra = totDistTra + distFromCp; 
+				prevDFC = distFromCp;
+				distFromCp = 0.0f;
+				presOrPrev = true;
+			}
 
-		else if (other.CompareTag ("Checkpoint") && i == cpCount-1){
-			cpCount -= 1;
-			totDistTra -= cps.distToPrevCp;
-			distFromCp = 0.0f;
-			presOrPrev = false;
-			cpsPrev = cps.prevCpObj.GetComponent<checkpointScript> ();
+			else if (i == cpCount-1){
+				cpCount -= 1;
+				totDistTra = totDistTra - prevDFC;
+
+				presOrPrev = false;
+				cpsPrev = cps.prevCpObj.GetComponent<checkpointScript> ();
+				FindCpDist ();
+				prevDFC = distFromCp;
+			}
+
+			if (i == 0) {
+				totDistTra = 0.0f;
+			}
+
+			if (i >= numberOfCP - 1) {
+				print ("You have finished");
+			}
+
 		}
 	}
 }

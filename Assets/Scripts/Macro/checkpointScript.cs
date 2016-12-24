@@ -3,18 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class checkpointScript : MonoBehaviour {
-	public int index;
+	public int index; //start from zero
 
 	public GameObject prevCpObj; //previous checkpoint's gameobject
 
-	private Transform prevCpTrans; //previous checkpoint's transform
 	public Transform nextCpTrans; //next checkpoint's transform
-
-	public float distToPrevCp; //used by cc2 for more accuracy
+	public Transform presCpTrans; // present checkpoint's transform. Don't initialise this.
 
 	void start(){
-		prevCpTrans = prevCpObj.GetComponent<Transform> ();
-
-		distToPrevCp = (prevCpTrans.position - gameObject.transform.position).magnitude;
+		presCpTrans = GetComponent<Transform> ();
 	}
 }
