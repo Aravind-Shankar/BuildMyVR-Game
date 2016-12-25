@@ -31,10 +31,8 @@ public class CustomNetworkDiscovery : NetworkDiscovery {
 	}
 
 	public override void OnReceivedBroadcast(string fromAddress, string data) {
-		HostInfo info = new HostInfo ();
-		info.hostIP = ParseIP(fromAddress);
-		info.hostName = ParseData(data);
-		SendMessage ("ReceivedBroadcast", info, SendMessageOptions.DontRequireReceiver);
+		if (GameFinder.instance != null)
+			GameFinder.instance.ReceivedBroadcast (ParseData(data), ParseIP(fromAddress));
 	}
 
 	public new void StopBroadcast() {
@@ -42,10 +40,5 @@ public class CustomNetworkDiscovery : NetworkDiscovery {
 			base.StopBroadcast ();
 			CancelInvoke ();
 		}
-	}
-
-	public struct HostInfo {
-		public string hostName;
-		public string hostIP;
 	}
 }

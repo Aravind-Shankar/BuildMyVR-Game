@@ -2567,7 +2567,6 @@ GameObject:
   - 223: {fileID: 304548904}
   - 114: {fileID: 304548903}
   - 114: {fileID: 304548902}
-  - 114: {fileID: 304548907}
   - 114: {fileID: 304548906}
   m_Layer: 5
   m_Name: Gamefinder Canvas
@@ -2662,6 +2661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3374aa987ee30e46a31e4b32b727d8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  discovery: {fileID: 1690542169}
   activeHostsGrid: {fileID: 3030558}
   activeHostButtonPrefab: {fileID: 1000010268235350, guid: b159d8dbd092cd049a9388a8f618b317,
     type: 2}
@@ -2672,29 +2672,7 @@ MonoBehaviour:
   mainMenuCanvas: {fileID: 518665977}
   lobbyCanvas: {fileID: 2042743208}
   backButtonCanvas: {fileID: 89457356}
-  discovery: {fileID: 0}
   selectedHostName: 
---- !u!114 &304548907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 304548901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b73f6de501b9c640abd9d6842ff0d2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BroadcastPort: 47777
-  m_BroadcastKey: 2222
-  m_BroadcastVersion: 1
-  m_BroadcastSubVersion: 1
-  m_BroadcastInterval: 1000
-  m_UseNetworkManager: 0
-  m_BroadcastData: HELLO
-  m_ShowGUI: 0
-  m_OffsetX: 0
-  m_OffsetY: 0
 --- !u!1 &312140022
 GameObject:
   m_ObjectHideFlags: 0
@@ -5551,8 +5529,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b61ce4124b1f579468531b725110e438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backButtonCanvas: {fileID: 89457356}
-  lobbyHandler: {fileID: 2042743213}
+  backButtonCanvas: {fileID: 1785852087}
+  lobbyHandler: {fileID: 1613384801}
 --- !u!1 &613662714
 GameObject:
   m_ObjectHideFlags: 0
@@ -15564,9 +15542,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 1690542167}
   - 114: {fileID: 1690542166}
+  - 114: {fileID: 1690542169}
   - 114: {fileID: 1690542168}
   m_Layer: 0
-  m_Name: Globals
+  m_Name: Globals (watch Players Panel)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15675,7 +15654,28 @@ MonoBehaviour:
   m_LobbyScene: Splash
   m_PlayScene: Main
   lobbySlots: []
-  playersPanel: {fileID: 42180151}
+  playersPanel: {fileID: 2033956651}
+--- !u!114 &1690542169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1690542165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b73f6de501b9c640abd9d6842ff0d2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BroadcastPort: 47777
+  m_BroadcastKey: 2222
+  m_BroadcastVersion: 1
+  m_BroadcastSubVersion: 1
+  m_BroadcastInterval: 1000
+  m_UseNetworkManager: 0
+  m_BroadcastData: HELLO
+  m_ShowGUI: 0
+  m_OffsetX: 0
+  m_OffsetY: 0
 --- !u!1 &1699306434
 GameObject:
   m_ObjectHideFlags: 0
@@ -16638,7 +16638,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1785852087}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -16718,7 +16718,6 @@ GameObject:
   - 223: {fileID: 1796790569}
   - 114: {fileID: 1796790568}
   - 114: {fileID: 1796790567}
-  - 114: {fileID: 1796790566}
   - 114: {fileID: 1796790565}
   m_Layer: 5
   m_Name: T Gamefinder Canvas
@@ -16738,6 +16737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3374aa987ee30e46a31e4b32b727d8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  discovery: {fileID: 1690542169}
   activeHostsGrid: {fileID: 1119248077}
   activeHostButtonPrefab: {fileID: 1000010268235350, guid: b159d8dbd092cd049a9388a8f618b317,
     type: 2}
@@ -16748,29 +16748,7 @@ MonoBehaviour:
   mainMenuCanvas: {fileID: 45177098}
   lobbyCanvas: {fileID: 1613384800}
   backButtonCanvas: {fileID: 1785852087}
-  discovery: {fileID: 0}
   selectedHostName: 
---- !u!114 &1796790566
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1796790564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b73f6de501b9c640abd9d6842ff0d2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BroadcastPort: 47777
-  m_BroadcastKey: 2222
-  m_BroadcastVersion: 1
-  m_BroadcastSubVersion: 1
-  m_BroadcastInterval: 1000
-  m_UseNetworkManager: 0
-  m_BroadcastData: HELLO
-  m_ShowGUI: 0
-  m_OffsetX: 0
-  m_OffsetY: 0
 --- !u!114 &1796790567
 MonoBehaviour:
   m_ObjectHideFlags: 0

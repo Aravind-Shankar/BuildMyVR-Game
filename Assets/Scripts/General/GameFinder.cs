@@ -5,9 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-[RequireComponent(typeof(CustomNetworkDiscovery))]
 public class GameFinder : MonoBehaviour {
 	public static GameFinder instance;
+
+	public CustomNetworkDiscovery discovery;
 
 	public GridLayoutGroup activeHostsGrid;
 	public GameObject activeHostButtonPrefab;
@@ -21,30 +22,25 @@ public class GameFinder : MonoBehaviour {
 	public GameObject backButtonCanvas;
 
 	[HideInInspector]
-	public CustomNetworkDiscovery discovery;
-	[HideInInspector]
 	public Dictionary<string, string> activeHosts;
 	[HideInInspector]
 	public string selectedHostName = "";
 	private Button selectedButton;
 	private bool clearingGrid;
 
-	void Awake() {
+	void OnEnable() {
 		if (instance != null) {
 			Destroy (gameObject);
 		} 
 		else {
 			instance = this;
 		}
-	}
 
-	void OnEnable() {
 		backButtonCanvas.SetActive (true);
 		Button backButton = backButtonCanvas.GetComponentInChildren<Button> ();
 		backButton.onClick.RemoveAllListeners ();
 		backButton.onClick.AddListener (GoBack);
 
-		discovery = GetComponent<CustomNetworkDiscovery> ();
 		activeHosts = new Dictionary<string, string> (StringComparer.InvariantCulture);
 
 		discovery.StopBroadcast ();
@@ -94,10 +90,10 @@ public class GameFinder : MonoBehaviour {
 		}
 	}
 
-	public void ReceivedBroadcast(CustomNetworkDiscovery.HostInfo info) {
-		if (!activeHosts.ContainsKey(info.hostName)) {
-			activeHosts.Add(info.hostName, info.hostIP);
-			CreateHostButton (info.hostName);
+	public void ReceivedBroadcast(string hostName, string hostIP) {
+		if (!activeHosts.ContainsKey(hostName)) {
+			activeHosts.Add(hostName, hostIP);
+			CreateHostButton (hostName);
 		}
 	}
 

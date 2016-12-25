@@ -7,10 +7,10 @@ public class CustomLobbyPlayer : NetworkLobbyPlayer {
 
 	public static CustomLobbyPlayer localPlayer;
 
-	[HideInInspector]
+	//[HideInInspector]
 	public string playerName = "";
 
-	[HideInInspector]
+	//[HideInInspector]
 	public Text nameText, readyText;
 
 	private CustomNetworkLobbyManager lobby;
