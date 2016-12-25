@@ -88,7 +88,9 @@ public class GameFinder : MonoBehaviour {
 			discovery.StopBroadcast ();
 			gameObject.SetActive (false);
 			mainMenuCanvas.SetActive (true);
-			mainMenuCanvas.GetComponent<Animator> ().SetTrigger ("startPlaying");
+			Animator mainMenuAnimator = mainMenuCanvas.GetComponent<Animator> ();
+			if (mainMenuAnimator != null && mainMenuAnimator.enabled)
+				mainMenuAnimator.SetTrigger ("startPlaying");
 		}
 	}
 
