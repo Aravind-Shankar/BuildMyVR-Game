@@ -71,10 +71,13 @@ public class carController : NetworkBehaviour
 
 	// apparently key-press events are handled properly only in Update/LateUpdate
 	void Update() {
+		if (!isLocalPlayer)
+			return;
+		
 		#if UNITY_EDITOR
 		if (Input.GetKeyDown (KeyCode.Space))
 			ToggleBrakes ();
-		steerInput = Mathf.Clamp(Input.GetAxis("Vertical"), -1f, 1f);
+		steerInput = Mathf.Clamp(Input.GetAxis("Horizontal"), -1f, 1f);
 		#elif UNITY_ANDROID
 		steerInput = Mathf.Clamp(Input.acceleration.x, -1f, 1f);
 		#endif

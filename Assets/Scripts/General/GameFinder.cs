@@ -94,6 +94,7 @@ public class GameFinder : MonoBehaviour {
 		if (!activeHosts.ContainsKey(hostName)) {
 			activeHosts.Add(hostName, hostIP);
 			CreateHostButton (hostName);
+			BroadcastMessage ("ValidateName", nameField.text, SendMessageOptions.RequireReceiver);
 		}
 	}
 

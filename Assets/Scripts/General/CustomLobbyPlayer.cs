@@ -61,7 +61,7 @@ public class CustomLobbyPlayer : NetworkLobbyPlayer {
 				yield return new WaitForEndOfFrame ();
 				foreach (CustomLobbyPlayer player in lobby.lobbySlots) {
 					if (player != null)
-						player.SendYourName ();
+						player.SendStats ();
 				}
 			}
 		}
@@ -71,21 +71,22 @@ public class CustomLobbyPlayer : NetworkLobbyPlayer {
 		yield return null;
 	}
 
-	public void SendYourName() {
+	public void SendStats() {
 		if (isLocalPlayer) {
-			CmdSendName (playerName);
+			CmdSendStats (playerName, readyToBegin);
 		}
 	}
 
 	[Command]
-	void CmdSendName(string outName) {
-		RpcReceiveName (outName);
+	void CmdSendStats(string outName, bool outReadyState) {
+		RpcReceiveStats (outName, outReadyState);
 	}
 
 	[ClientRpc]
-	void RpcReceiveName(string recdName) {
-		if (!isLocalPlayer && playerName == "") {
+	void RpcReceiveStats(string recdName, bool recdReadyState) {
+		if (!isLocalPlayer) {
 			playerName = recdName;
+			readyToBegin = recdReadyState;
 			StartCoroutine (SetUpUI (false));
 		}
 	}

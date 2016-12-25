@@ -27,12 +27,16 @@ public class NameValidator : MonoBehaviour {
 		else {
 			errorText.text = "";
 			field.text = enteredName.ToUpper ().Trim();
-			if (GameFinder.instance.activeHosts.ContainsKey (field.text))
+			if (GameFinder.instance != null &&
+				GameFinder.instance.activeHosts != null &&
+				GameFinder.instance.activeHosts.ContainsKey (field.text))
 				errorText.text = "Name already taken by an active host.";
 		}
 
 		hostButton.interactable = (errorText.text == "");
-		joinButton.interactable = (enteredName != "") && (GameFinder.instance.selectedHostName != "");
+		joinButton.interactable = (enteredName != "") &&
+			(GameFinder.instance != null &&
+			GameFinder.instance.selectedHostName != "");
 
 
 	}
