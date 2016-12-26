@@ -391,6 +391,8 @@ GameObject:
   - 114: {fileID: 114000013742692990}
   - 114: {fileID: 114000012033695706}
   - 114: {fileID: 114000010424065728}
+  - 114: {fileID: 114000010927002120}
+  - 114: {fileID: 114000010579812878}
   m_Layer: 0
   m_Name: CarVR V2.0
   m_TagString: Untagged
@@ -1145,6 +1147,20 @@ MonoBehaviour:
   m_MovementThreshold: 0.001
   m_InterpolateRotation: 0.5
   m_InterpolateMovement: 0.5
+--- !u!114 &114000010579812878
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014006262166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba3e1f2d3dd575b46a00571a5d508e00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wheelL: {fileID: 146000014079577446}
+  wheelR: {fileID: 146000013984954204}
+  antiRollFactor: 5000
 --- !u!114 &114000010749825674
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1179,6 +1195,20 @@ MonoBehaviour:
   playerName: 
   index: 0
   rank: 0
+--- !u!114 &114000010927002120
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014006262166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba3e1f2d3dd575b46a00571a5d508e00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wheelL: {fileID: 146000011247686378}
+  wheelR: {fileID: 146000012576750158}
+  antiRollFactor: 5000
 --- !u!114 &114000011177742302
 MonoBehaviour:
   m_ObjectHideFlags: 1
