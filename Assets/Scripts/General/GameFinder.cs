@@ -28,14 +28,16 @@ public class GameFinder : MonoBehaviour {
 	private Button selectedButton;
 	private bool clearingGrid;
 
-	void OnEnable() {
+	void Awake() {
 		if (instance != null) {
 			Destroy (gameObject);
 		} 
 		else {
 			instance = this;
 		}
+	}
 
+	void OnEnable() {
 		backButtonCanvas.SetActive (true);
 		Button backButton = backButtonCanvas.GetComponentInChildren<Button> ();
 		backButton.onClick.RemoveAllListeners ();
