@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class cc2 : MonoBehaviour {
-	/*
+	
 	public WheelCollider wheelFL;
 	public WheelCollider wheelFR;
 	public WheelCollider wheelRL;
@@ -167,8 +167,7 @@ public class cc2 : MonoBehaviour {
 			wheelRR.motorTorque = accFactor * maxTorque * 0.5f;
 		}
 	}
-	*//*
-}
+
 	void OnTriggerExit(Collider other) {
 		if(other.CompareTag ("Checkpoint")){
 			cps = other.GetComponent<checkpointScript> ();
@@ -201,5 +200,5 @@ public class cc2 : MonoBehaviour {
 			}
 
 		}
-	}*/
+	}
 }
