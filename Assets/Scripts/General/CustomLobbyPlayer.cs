@@ -67,7 +67,7 @@ public class CustomLobbyPlayer : NetworkLobbyPlayer {
 		}
 
 		AssignReadyText ();
-		nameText.text = (slot + 1) + ". " + playerName;
+		nameText.text = "PLAYER " + (slot + 1) + ":\n" + playerName;
 		yield return null;
 	}
 
