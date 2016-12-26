@@ -1160,7 +1160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wheelL: {fileID: 146000014079577446}
   wheelR: {fileID: 146000013984954204}
-  antiRollFactor: 5000
+  antiRollFactor: 2000
 --- !u!114 &114000010749825674
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1208,7 +1208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wheelL: {fileID: 146000011247686378}
   wheelR: {fileID: 146000012576750158}
-  antiRollFactor: 5000
+  antiRollFactor: 2000
 --- !u!114 &114000011177742302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1461,8 +1461,8 @@ MonoBehaviour:
   maxFBrake: 5000
   maxRBrake: 1000
   reverseThresholdSpeed: 0.05
-  reverseAccFactor: 0.25
-  maxTorque: 1000
+  reverseAccFactor: 0.5
+  maxTorque: 500
   acceleration: 2
   isAccDefect: 0
 --- !u!114 &114000013196812876
