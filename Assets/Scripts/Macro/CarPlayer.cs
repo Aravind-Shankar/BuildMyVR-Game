@@ -6,7 +6,7 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody))]
 public class CarPlayer : NetworkBehaviour {
 
-	public Text nameHUDText;
+	public TextMesh nameHUDText;
 	public Text rankText;
 	public Text speedText;
 
@@ -20,8 +20,10 @@ public class CarPlayer : NetworkBehaviour {
 	public float distToNextCP;
 
 	[HideInInspector]
+	[SyncVar]
 	public string playerName;
 	[HideInInspector]
+	[SyncVar]
 	public int index;
 
 	private Rigidbody attachedRigidbody;
@@ -31,6 +33,8 @@ public class CarPlayer : NetworkBehaviour {
 
 	private Transform checkpointsParent;
 	private Plane[] checkpointPlanes;
+
+	private bool triggerEntered, triggerExited;
 
 	void Start() {
 		attachedRigidbody = GetComponent<Rigidbody> ();
@@ -51,22 +55,50 @@ public class CarPlayer : NetworkBehaviour {
 		UpdateDistFromNextCP ();
 
 		ShowSpeed ();
-		print ("query rank");
 		CmdQueryRank ();
+	}
+
+	void OnTriggerEnter(Collider other) {
+		if (!isLocalPlayer)
+			return;
+
+		if (other.CompareTag ("Checkpoint") && !triggerEntered)
+			triggerEntered = true;
 	}
 
 	void OnTriggerExit(Collider other) {
 		if (!isLocalPlayer)
 			return;
 		
-		if (other.CompareTag ("Checkpoint")) {
+		if (other.CompareTag ("Checkpoint") && triggerEntered) {
+			triggerEntered = false;
+
+			if (triggerExited) {
+				triggerExited = false;
+				return;
+			}
+
+			triggerExited = true;
 			int cpIndex = other.transform.GetSiblingIndex ();
+			TextMesh startText = other.gameObject.GetComponentInChildren<TextMesh> ();
 
 			if (cpIndex == cpCount) {
 				++cpCount; 
+				print ("checkpoints crossed: " + cpCount);
+				if (startText != null)
+					startText.text = startText.text.Replace ("START", "FINISH");
 			}
 			else if (cpIndex == cpCount - 1) {
 				--cpCount;
+				print ("checkpoints crossed: " + cpCount);
+				if (startText != null)
+					startText.text = startText.text.Replace ("FINISH", "START");
+			}
+			else if (cpIndex == 0 && cpCount == checkpointsParent.childCount) {
+				#if UNITY_EDITOR
+				UnityEditor.EditorApplication.isPlaying = false;
+				#endif
+				Application.Quit ();
 			}
 		}
 	}
@@ -84,7 +116,8 @@ public class CarPlayer : NetworkBehaviour {
 	}
 
 	void UpdateDistFromNextCP () {
-		distToNextCP = Mathf.Abs (checkpointPlanes[cpCount].GetDistanceToPoint(transform.position));
+		int nextPlaneIndex = (cpCount == checkpointPlanes.Length) ? 0 : cpCount;
+		distToNextCP = Mathf.Abs (checkpointPlanes[nextPlaneIndex].GetDistanceToPoint(transform.position));
 	}
 
 	void ShowSpeed () {

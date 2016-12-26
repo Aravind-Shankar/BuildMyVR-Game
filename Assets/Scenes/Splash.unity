@@ -15641,7 +15641,6 @@ MonoBehaviour:
   m_PlayScene: Main
   lobbySlots: []
   playersPanel: {fileID: 2033956651}
-  carPlayers: []
 --- !u!114 &1690542169
 MonoBehaviour:
   m_ObjectHideFlags: 0
