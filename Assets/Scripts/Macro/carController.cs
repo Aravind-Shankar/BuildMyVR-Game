@@ -120,6 +120,15 @@ public class carController : NetworkBehaviour
 		if (accFactor <= 1) {
 			accFactor += acceleration * (Time.deltaTime);
 		}
+
+		if (revOrFor) {
+			wheelRL.motorTorque = accFactor * maxTorque;
+			wheelRR.motorTorque = accFactor * maxTorque;
+		}
+		else {
+			wheelRL.motorTorque = -accFactor * maxTorque;
+			wheelRR.motorTorque = -accFactor * maxTorque;
+		}
 	}
 	/*
 	void CarBrakesOn(){
@@ -142,14 +151,6 @@ public class carController : NetworkBehaviour
 		if (rb.velocity.z <= 0.0f && rb.velocity.z >= -0.3f) {
 			revOrFor = false;
 		} 
-		if (revOrFor) {
-			wheelRL.motorTorque = accFactor * maxTorque;
-			wheelRR.motorTorque = accFactor * maxTorque;
-		}
-		else {
-			wheelRL.motorTorque = -accFactor * maxTorque;
-			wheelRR.motorTorque = -accFactor * maxTorque;
-		}
 	}
 	*/
 	private void SetSteerAngle() {
