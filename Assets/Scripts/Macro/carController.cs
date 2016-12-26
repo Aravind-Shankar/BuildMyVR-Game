@@ -42,15 +42,11 @@ public class carController : NetworkBehaviour
 		MagnetSensor.OnCardboardTrigger += ToggleBrakes;
 	}
 
-	/*
-	void OnGUI(){
-		GUI.Label (new Rect (10.0f, 10.0f, 50.0f, 50.0f), "Acc Defective: " + isAccDefect);
-	}
-	*/
-
 	void OnDisable() {
 		if (!isLocalPlayer)
 			return;
+		if (DummyCamController.singleton != null)
+			DummyCamController.singleton.ActivateCamera ();
 		MagnetSensor.OnCardboardTrigger -= ToggleBrakes;
 	}
 
