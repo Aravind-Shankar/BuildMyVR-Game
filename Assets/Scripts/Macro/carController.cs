@@ -79,7 +79,8 @@ public class carController : NetworkBehaviour
 			ToggleBrakes ();
 		steerInput = Mathf.Clamp(Input.GetAxis("Horizontal"), -1f, 1f);
 		#elif UNITY_ANDROID
-		steerInput = Mathf.Clamp(Input.acceleration.x, -1f, 1f);
+		steerInput = Mathf.Clamp(Input.acceleration.x, -1f, 1f) *
+					((revOrFor) ? 1f : -1f);
 		#endif
 	}
 
