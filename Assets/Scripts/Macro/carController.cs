@@ -17,9 +17,10 @@ public class carController : NetworkBehaviour
 	public float maxFBrake = 30.0f;
 	public float maxRBrake = 10.0f;
 	public float reverseThresholdSpeed = 0.05f;
+	public float reverseAccFactor = 0.25f;
 
 	public float maxTorque = 1000.0f;
-	private float acceleration = 100.0f;
+	public float acceleration = 10.0f;
 	private float accFactor = 0.0f;
 	private float steerInput;
 	public bool isAccDefect;
@@ -29,7 +30,7 @@ public class carController : NetworkBehaviour
 
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
-		//rb.centerOfMass = new Vector3 (0.0f, -0.9f, 0.0f);
+		//rb.centerOfMass = Vector3.forward * -0.5f;
 
 		/*LoadMacroState ();*/
 	}
@@ -38,6 +39,7 @@ public class carController : NetworkBehaviour
 		if (DummyCamController.singleton != null)
 			DummyCamController.singleton.DeactivateCamera ();
 		gameObject.transform.FindChild ("GvrMain").gameObject.SetActive (true);
+		MagnetSensor.OnCardboardTrigger += ToggleBrakes;
 	}
 
 	/*
@@ -46,11 +48,9 @@ public class carController : NetworkBehaviour
 	}
 	*/
 
-	void OnEnable() {
-		MagnetSensor.OnCardboardTrigger += ToggleBrakes;
-	}
-
 	void OnDisable() {
+		if (!isLocalPlayer)
+			return;
 		MagnetSensor.OnCardboardTrigger -= ToggleBrakes;
 	}
 
@@ -127,8 +127,8 @@ public class carController : NetworkBehaviour
 			wheelRR.motorTorque = accFactor * maxTorque;
 		}
 		else {
-			wheelRL.motorTorque = -accFactor * maxTorque;
-			wheelRR.motorTorque = -accFactor * maxTorque;
+			wheelRL.motorTorque = -accFactor * reverseAccFactor * maxTorque;
+			wheelRR.motorTorque = -accFactor * reverseAccFactor * maxTorque;
 		}
 	}
 	/*
