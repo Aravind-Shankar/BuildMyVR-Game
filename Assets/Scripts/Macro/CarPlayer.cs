@@ -7,8 +7,14 @@ using System.Collections;
 public class CarPlayer : NetworkBehaviour {
 
 	public TextMesh nameHUDText;
+
+	public Text nameFPText;
 	public Text rankText;
 	public Text speedText;
+
+	public GameObject finishCanvas;
+	public Text finishRankMessage;
+	public Text finishWaitMessage;
 
 	public float speedScaleFactor = 10f;	// acc for model scaling
 
@@ -35,6 +41,7 @@ public class CarPlayer : NetworkBehaviour {
 	private Plane[] checkpointPlanes;
 
 	private bool triggerEntered, triggerExited;
+	private bool finished;
 
 	void Start() {
 		attachedRigidbody = GetComponent<Rigidbody> ();
@@ -45,12 +52,14 @@ public class CarPlayer : NetworkBehaviour {
 	{
 		if (nameHUDText != null)
 			nameHUDText.text = "P" + index + ": " + playerName;
+		if (nameFPText != null)
+			nameFPText.text = "P" + index + ": " + playerName;
 		checkpointsParent = GameObject.Find ("Checkpoints").transform;
 		SetUpPlanes ();
 	}
 
 	void FixedUpdate() {
-		if (!isLocalPlayer)
+		if (!isLocalPlayer || finished)
 			return;
 		UpdateDistFromNextCP ();
 
@@ -59,7 +68,7 @@ public class CarPlayer : NetworkBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		if (!isLocalPlayer)
+		if (!isLocalPlayer || finished)
 			return;
 
 		if (other.CompareTag ("Checkpoint") && !triggerEntered)
@@ -67,7 +76,7 @@ public class CarPlayer : NetworkBehaviour {
 	}
 
 	void OnTriggerExit(Collider other) {
-		if (!isLocalPlayer)
+		if (!isLocalPlayer || finished)
 			return;
 		
 		if (other.CompareTag ("Checkpoint") && triggerEntered) {
@@ -84,21 +93,24 @@ public class CarPlayer : NetworkBehaviour {
 
 			if (cpIndex == cpCount) {
 				++cpCount; 
-				print ("checkpoints crossed: " + cpCount);
 				if (startText != null)
 					startText.text = startText.text.Replace ("START", "FINISH");
 			}
 			else if (cpIndex == cpCount - 1) {
 				--cpCount;
-				print ("checkpoints crossed: " + cpCount);
 				if (startText != null)
 					startText.text = startText.text.Replace ("FINISH", "START");
 			}
 			else if (cpIndex == 0 && cpCount == checkpointsParent.childCount) {
-				#if UNITY_EDITOR
-				UnityEditor.EditorApplication.isPlaying = false;
-				#endif
-				Application.Quit ();
+				finished = true;
+				CmdSignalFinished ();
+
+				speedText.enabled = false;
+				rankText.enabled = false;
+				nameFPText.enabled = false;
+				finishCanvas.SetActive (true);
+				finishRankMessage.text = "P" + index + ": " + playerName + " - Finished at Position " + rank;
+				finishWaitMessage.text = "Please do not quit until all players finish.";
 			}
 		}
 	}
@@ -136,6 +148,13 @@ public class CarPlayer : NetworkBehaviour {
 		}
 	}
 
+	void QuitGame() {
+		#if UNITY_EDITOR
+		UnityEditor.EditorApplication.isPlaying = false;
+		#endif
+		Application.Quit ();
+	}
+
 	[Command]
 	void CmdQueryNumPlayers () {
 		if (isLocalPlayer)
@@ -155,6 +174,15 @@ public class CarPlayer : NetworkBehaviour {
 			RpcReceiveRank(rank);
 	}
 
+	[Command]
+	void CmdSignalFinished() {
+		if (manager.SignalFinishedAndCheckForOthers (index)) {
+		}
+		else {
+			RpcQuit ();
+		}
+	}
+
 	[ClientRpc]
 	void RpcReceiveNumPlayers(int num) {
 		numPlayers = num;
@@ -166,6 +194,14 @@ public class CarPlayer : NetworkBehaviour {
 			print ("recd rank " + rank);
 			this.rank = rank;
 			ShowRank ();
+		}
+	}
+
+	[ClientRpc]
+	void RpcQuit() {
+		if (isLocalPlayer) {
+			finishWaitMessage.text = "All done. Exiting in 5 seconds.";
+			Invoke ("QuitGame", 5f);
 		}
 	}
 }

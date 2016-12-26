@@ -8,7 +8,10 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
 
 	public HorizontalLayoutGroup playersPanel;
 
-	private CarPlayer[] carPlayers;
+	[HideInInspector]
+	public CarPlayer[] carPlayers;
+
+	private int numActivePlayers;
 
 	public override bool OnLobbyServerSceneLoadedForPlayer(
 		GameObject lobbyPlayer, GameObject gamePlayer)
@@ -21,6 +24,7 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
 		if (carPlayers == null || carPlayers.Length == 0)
 			carPlayers = new CarPlayer[numPlayers];
 		carPlayers [lobbyPlayerComponent.slot] = carPlayerComponent;
+		++numActivePlayers;
 		return true;
 	}
 
@@ -36,5 +40,10 @@ public class CustomNetworkLobbyManager : NetworkLobbyManager {
 			if (carPlayers [i].index == index)
 				return rank;
 		return -1;
+	}
+
+	public bool SignalFinishedAndCheckForOthers(int index) {
+		--numActivePlayers;
+		return (numActivePlayers > 0);
 	}
 }

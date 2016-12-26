@@ -166,7 +166,7 @@ PlayerSettings:
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: D:/Programming/Repos/BuildMyVR-Game/Builds/release.keystore
-  AndroidKeyaliasName: 
+  AndroidKeyaliasName: test key
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
   androidEnableBanner: 0
