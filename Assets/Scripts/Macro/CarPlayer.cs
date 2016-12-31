@@ -18,17 +18,17 @@ public class CarPlayer : NetworkBehaviour {
 
 	public float speedScaleFactor = 10f;	// acc for model scaling
 
-	[HideInInspector]
+	//[HideInInspector]
 	[SyncVar]
 	public int cpCount;
-	[HideInInspector]
+	//[HideInInspector]
 	[SyncVar]
 	public float distToNextCP;
 
-	[HideInInspector]
+	//[HideInInspector]
 	[SyncVar]
 	public string playerName;
-	[HideInInspector]
+	//[HideInInspector]
 	[SyncVar]
 	public int index;
 
@@ -46,12 +46,12 @@ public class CarPlayer : NetworkBehaviour {
 	void Start() {
 		attachedRigidbody = GetComponent<Rigidbody> ();
 		manager = NetworkManager.singleton as CustomNetworkLobbyManager;
+		if (nameHUDText != null)
+			nameHUDText.text = "P" + index + ": " + playerName;
 	}
 
 	public override void OnStartLocalPlayer ()
 	{
-		if (nameHUDText != null)
-			nameHUDText.text = "P" + index + ": " + playerName;
 		if (nameFPText != null)
 			nameFPText.text = "P" + index + ": " + playerName;
 		checkpointsParent = GameObject.Find ("Checkpoints").transform;
