@@ -3,42 +3,55 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Collections;
 
-public class LobbyHandler : MonoBehaviour {
+using Vroom.Networking;
 
-	public Camera mainCamera;
-	public GameObject propCar;
-	public GameObject backButtonCanvas;
-	public GameObject gamefinderCanvas;
+namespace Vroom
+{
+	namespace PreGame
+	{
+		public class LobbyHandler : MonoBehaviour
+		{
+		
+			public Camera mainCamera;
+			public GameObject propCar;
+			public GameObject backButtonCanvas;
+			public GameObject gamefinderCanvas;
+		
+			private GameObject gvrMain;
 
-	private GameObject gvrMain;
+			void OnEnable ()
+			{
+				backButtonCanvas.SetActive (false);
+				Button backButton = backButtonCanvas.GetComponentInChildren<Button> ();
+				backButton.onClick.RemoveAllListeners ();
+				backButton.onClick.AddListener (GoBack);
+		
+				gvrMain = propCar.transform.FindChild ("GvrMain").gameObject;
+			}
 
-	void OnEnable() {
-		backButtonCanvas.SetActive (false);
-		Button backButton = backButtonCanvas.GetComponentInChildren<Button> ();
-		backButton.onClick.RemoveAllListeners ();
-		backButton.onClick.AddListener (GoBack);
+			public void TransitionToVR ()
+			{
+				gameObject.SetActive (false);
+				mainCamera.enabled = false;
+				gvrMain.SetActive (true);
+			}
 
-		gvrMain = propCar.transform.FindChild ("GvrMain").gameObject;
-	}
+			public void TransitionFromVR ()
+			{
+				gvrMain.SetActive (false);
+				gameObject.SetActive (true);
+				mainCamera.enabled = true;
+			}
 
-	public void TransitionToVR() {
-		gameObject.SetActive (false);
-		mainCamera.enabled = false;
-		gvrMain.SetActive (true);
-	}
-
-	public void TransitionFromVR() {
-		gvrMain.SetActive (false);
-		gameObject.SetActive (true);
-		mainCamera.enabled = true;
-	}
-
-	public void GoBack() {
-		if (isActiveAndEnabled) {
-			CustomLobbyPlayer.localPlayer.RemovePlayer ();
-			gameObject.SetActive (false);
-			gamefinderCanvas.SetActive (true);
+			public void GoBack ()
+			{
+				if (isActiveAndEnabled) {
+					CustomLobbyPlayer.localPlayer.RemovePlayer ();
+					gameObject.SetActive (false);
+					gamefinderCanvas.SetActive (true);
+				}
+			}
+		
 		}
 	}
-
 }
